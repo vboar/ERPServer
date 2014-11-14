@@ -1,0 +1,15 @@
+package po;
+
+public enum DocumentType {
+	PRESENT,
+	OVERFLOW,
+	LOSS,
+	WARNING,
+	SALE,
+	SALERETURN,
+	PURCHASE,
+	PURCHASERETURN,
+	RECEIPT,
+	PAYMENT,
+	CASH
+}

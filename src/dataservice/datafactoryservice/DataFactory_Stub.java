@@ -5,6 +5,9 @@
  */
 package dataservice.datafactoryservice;
 
+import java.rmi.RemoteException;
+
+import data.promotiondata.CustomerGiftDataserviceImpl;
 import dataservice.accountdataservice.AccountDataService;
 import dataservice.accountdataservice.AccountDataServiceTxtFileImpl_Stub;
 import dataservice.commoditydataservice.CategoryDataService;
@@ -29,14 +32,16 @@ import dataservice.paymentdataservice.PaymentDataService;
 import dataservice.paymentdataservice.PaymentDataServiceTxtFileImpl_Stub;
 import dataservice.presentdataservice.PresentDataService;
 import dataservice.presentdataservice.PresentDataServiceTxtFileImpl_Stub;
-import dataservice.promotiondataservice.PromotionDataService;
-import dataservice.promotiondataservice.PromotionDataServiceTxtFileImpl_Stub;
+import dataservice.promotiondataservice.CustomerGiftDataservice;
+import dataservice.promotiondataservice.SpecialOfferDataService;
+import dataservice.promotiondataservice.TotalGiftDataService;
 import dataservice.purchasedataservice.PurchaseDataService;
 import dataservice.purchasedataservice.PurchaseDataServiceTxtFileImpl_Stub;
 import dataservice.saledataservice.SaleDataService;
 import dataservice.saledataservice.SaleDataServiceTxtFileImpl_Stub;
 import dataservice.stockdataservice.StockDataService;
 import dataservice.stockdataservice.StockDataServiceTxtFileImpl_Stub;
+import dataservice.systemdateservice.SystemDataService;
 import dataservice.userdataservice.UserDataService;
 import dataservice.userdataservice.UserDataServiceTxtFileImpl_Stub;
 
@@ -103,8 +108,20 @@ public class DataFactory_Stub implements DataFactory {
 	}
 
 	@Override
-	public PromotionDataService getPromotionData() {
-		return new PromotionDataServiceTxtFileImpl_Stub();
+	public CustomerGiftDataservice getCustomerGiftData() throws RemoteException {
+		return new CustomerGiftDataserviceImpl();
+	}
+
+	@Override
+	public TotalGiftDataService getTotalGiftData() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SpecialOfferDataService getSpecialOfferData() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override
@@ -125,6 +142,12 @@ public class DataFactory_Stub implements DataFactory {
 	@Override
 	public UserDataService getUserData() {
 		return new UserDataServiceTxtFileImpl_Stub();
+	}
+
+	@Override
+	public SystemDataService getSystemData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

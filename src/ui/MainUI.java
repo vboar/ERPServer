@@ -92,6 +92,22 @@ public class MainUI extends JFrame {
 		
 		this.setVisible(true);
 		
+//		DataIOUtility d = new DataIOUtility();
+//		List<String> lists = new ArrayList<String>();
+//		for(int i = 0; i < 10; i++) {
+//			lists.add("abc " + i);
+//		}
+//		d.writeData(lists, "user");
+//		List<String> lists = d.readData("user");
+//		for(String s: lists) {
+//			System.out.println(s);
+//		}
+//		List<String> lists = new ArrayList<String>();
+//		for(int i = 0; i < 10; i++) {
+//			lists.add("abc " + i);
+//		}
+//		d.writeDataAdd(lists, "user");
+		
 	}
 
 }

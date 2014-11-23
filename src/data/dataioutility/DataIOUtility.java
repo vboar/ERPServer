@@ -1,5 +1,5 @@
 /**
- * 数据读写公共类
+ * 数据层操作的公共类
  * @author Vboar
  * @date 2014/11/15
  */
@@ -77,4 +77,35 @@ public class DataIOUtility {
 		}
 		return lists;
 	}
+	
+	/**
+	 * 将多个String化为分割的String
+	 * @param strs
+	 * @return
+	 */
+	public ArrayList<String[]> stringToArrayAll(ArrayList<String> strs) {
+		ArrayList<String[]> lists = new ArrayList<String[]>();
+		for(String s: strs) {
+			lists.add(s.split(";"));
+		}
+		return lists;
+	}
+	
+	/**
+	 * 将多个分割的String转化为String
+	 * @param lists
+	 * @return
+	 */
+	public ArrayList<String> arrayToStringAll(ArrayList<String[]> lists) {
+		ArrayList<String> strs = new ArrayList<String>();
+		for(String[] s: lists) {
+			String temp = "";
+			for(int i = 0; i < s.length; i++) {
+				temp = temp + s[i] + ";";
+			}
+			strs.add(temp);
+		}
+		return strs;
+	}
+	
 }

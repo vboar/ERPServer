@@ -11,7 +11,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import po.UserPO;
-import util.UserType;
 import data.dataioutility.DataIOUtility;
 import dataservice.userdataservice.UserDataService;
 
@@ -85,15 +84,20 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	}
 
 	@Override
-	public ArrayList<UserPO> findByType(UserType type) throws RemoteException {
+	public ArrayList<UserPO> findByType(int type) throws RemoteException {
 		ArrayList<UserPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<UserPO> lists = new ArrayList<UserPO>();
-//		for(UserPO po: tLists) {
-//			if(po.getType() == type) {
-//				lists.add(po);
-//			}
-//		}
+		for(UserPO po: tLists) {
+			if(po.getType() == type) {
+				lists.add(po);
+			}
+		}
 		return lists;
+	}
+	
+	@Override
+	public UserPO getById(String id) throws RemoteException {
+		return null;
 	}
 
 	@Override

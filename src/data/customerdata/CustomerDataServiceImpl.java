@@ -45,6 +45,11 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	public ArrayList<CustomerPO> findById(String id) throws RemoteException {
 		return null;
 	}
+	
+	@Override
+	public CustomerPO getById(String id) throws RemoteException {
+		return null;
+	}
 
 	@Override
 	public ArrayList<CustomerPO> show() throws RemoteException {

@@ -45,6 +45,11 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	public ArrayList<CategoryPO> findByName(String name) throws RemoteException {
 		return null;
 	}
+	
+	@Override
+	public CategoryPO getById(String id) throws RemoteException {
+		return null;
+	}
 
 	@Override
 	public ArrayList<CategoryPO> show() throws RemoteException {

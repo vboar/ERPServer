@@ -50,6 +50,11 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	public ArrayList<CommodityPO> findByModel(String model) throws RemoteException {
 		return null;
 	}
+	
+	@Override
+	public CommodityPO getById(String id) throws RemoteException {
+		return null;
+	}
 
 	@Override
 	public ArrayList<CommodityPO> show() throws RemoteException {

@@ -88,11 +88,11 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	public ArrayList<UserPO> findByType(UserType type) throws RemoteException {
 		ArrayList<UserPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<UserPO> lists = new ArrayList<UserPO>();
-		for(UserPO po: tLists) {
-			if(po.getType() == type) {
-				lists.add(po);
-			}
-		}
+//		for(UserPO po: tLists) {
+//			if(po.getType() == type) {
+//				lists.add(po);
+//			}
+//		}
 		return lists;
 	}
 
@@ -108,8 +108,9 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	
 	private UserPO stringToPo(String s) {
 		String[] strs = s.split(";");
+		int type = Integer.parseInt(strs[2]);
 		int permission = Integer.parseInt(strs[3]);
-		return new UserPO(strs[0], strs[1], UserType.valueOf(strs[2]), permission, strs[4]);
+		return new UserPO(strs[0], strs[1], type, permission, strs[4]);
 	}
 	
 //	private ArrayList<String> poToStringAll(ArrayList<UserPO> lists) {

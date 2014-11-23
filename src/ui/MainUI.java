@@ -17,7 +17,9 @@ import java.rmi.registry.LocateRegistry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import data.commoditydata.CategoryDataServiceImpl;
 import data.userdata.UserDataServiceImpl;
+import dataservice.commoditydataservice.CategoryDataService;
 import dataservice.userdataservice.UserDataService;
 
 public class MainUI extends JFrame {
@@ -66,6 +68,8 @@ public class MainUI extends JFrame {
 					System.out.println("Service Start!");
 					UserDataService userDataService = new UserDataServiceImpl();
 					Naming.rebind(MainUI.ADDRESS + MainUI.PORT + "/UserDataService", userDataService);
+					CategoryDataService categoryDataService = new CategoryDataServiceImpl();
+					Naming.rebind(MainUI.ADDRESS + MainUI.PORT + "/CategoryDataService", categoryDataService);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -102,7 +102,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	}
 	
 	private String poToString(UserPO po) {
-		return po.getId() + ";" + po.getPassword() + ";" + po.getType() 
+		return po.getId() + ";" + po.getPassword() + ";" + po.getType()
 				+ ";" + po.getPermission() + ";" + po.getName();
 	}
 	

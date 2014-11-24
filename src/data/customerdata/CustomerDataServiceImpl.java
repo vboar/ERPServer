@@ -1,5 +1,5 @@
 /**
- * 客户管理数据层操作接口
+ * 客户管理数据层操作实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -18,7 +18,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 
 	private static final long serialVersionUID = 1L;
 	
-	private String path = "user";
+	private String path = "customer";
 	
 	private DataIOUtility d = null;
 
@@ -27,36 +27,97 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 		d = new DataIOUtility(path);
 	}
 	
+	/**
+	 * 添加一个PO对象
+	 */
 	@Override
 	public void insert(CustomerPO po) throws RemoteException {
+		d.writeDataAdd(this.poToString(po));
 	}
 
+	/**
+	 * 删除一个PO对象
+	 */
 	@Override
 	public void delete(CustomerPO po) throws RemoteException {
+		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
+		for(String[] s: lists) {
+			if(s[0].equals(po.getId())) {
+				lists.remove(s);
+				break;
+			}
+		}
+		d.writeData(d.arrayToStringAll(lists));
 	}
 
+	/**
+	 * 更新一个PO对象
+	 */
 	@Override
 	public void update(CustomerPO po) throws RemoteException {
+		String[] temp = this.poToString(po).split(";");
+		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
+		for(String[] s: lists) {
+			if(s[0].equals(po.getId())) {
+				for(int i = 1; i < s.length; i++) {
+					s[i] = temp[i];
+				}
+				break;
+			}
+		}
+		d.writeData(d.arrayToStringAll(lists));
 	}
 
+	/**
+	 * 根据姓名模糊查找PO对象
+	 */
 	@Override
 	public ArrayList<CustomerPO> findByName(String name) throws RemoteException {
-		return null;
+		ArrayList<CustomerPO> tLists = this.stringToPoAll(d.readData());
+		ArrayList<CustomerPO> lists = new ArrayList<CustomerPO>();
+		for(CustomerPO po: tLists) {
+			if(po.getName().contains(name)) {
+				lists.add(po);
+			}
+		}
+		return lists;
 	}
 
+	/**
+	 * 根据ID模糊查找PO对象
+	 */
 	@Override
 	public ArrayList<CustomerPO> findById(String id) throws RemoteException {
-		return null;
+		ArrayList<CustomerPO> tLists = this.stringToPoAll(d.readData());
+		ArrayList<CustomerPO> lists = new ArrayList<CustomerPO>();
+		for(CustomerPO po: tLists) {
+			if(po.getId().contains(id)) {
+				lists.add(po);
+			}
+		}
+		return lists;
 	}
 	
+	/**
+	 * 根据ID准确查找PO对象
+	 */
 	@Override
 	public CustomerPO getById(String id) throws RemoteException {
+		ArrayList<CustomerPO> lists = this.stringToPoAll(d.readData());
+		for(CustomerPO po: lists) {
+			if(id.equals(po.getId())) {
+				return po;
+			}
+		}
 		return null;
 	}
 
+	/**
+	 * 返回所有PO对象
+	 */
 	@Override
 	public ArrayList<CustomerPO> show() throws RemoteException {
-		return null;
+		return this.stringToPoAll(d.readData());
 	}
 	
 	/**

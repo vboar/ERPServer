@@ -1,5 +1,5 @@
 /**
- * 报溢报损单数据接口
+ * 报溢报损单数据层操作接口
  * @author Vboar
  * @date 2014/10/25
  */
@@ -24,5 +24,7 @@ public interface ExceptionDataService extends Remote {
 	public ArrayList<ExceptionPO> findById(String id) throws RemoteException;
 	
 	public ArrayList<ExceptionPO> findByStatus(DocumentStatus status) throws RemoteException;
+	
+	public ExceptionPO getById(String id) throws RemoteException;
 	
 }

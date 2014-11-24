@@ -18,7 +18,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	
 	private static final long serialVersionUID = 1L;
 
-	private String path = "user";
+	private String path = "commodity";
 	
 	private DataIOUtility d = null;
 	

@@ -28,7 +28,17 @@ public class SalePO implements Serializable {
 	/**
 	* 客户编号
 	*/
-	 private String customerId;	
+	private String customerId;	
+	 
+	/**
+	 * 客户姓名
+	 */
+	private String customerName;
+	 
+	/**
+	* 客户vip
+	*/
+	private int customerVIP;
 	
 	/**
 	* 业务员
@@ -36,7 +46,7 @@ public class SalePO implements Serializable {
 	private String salesman;
 	
 	/**
-	* 操作员
+	* 操作员id
 	*/
 	private String operatorId;
 	   
@@ -49,6 +59,11 @@ public class SalePO implements Serializable {
 	* 入库商品列表
 	*/
 	private ArrayList<CommodityLineItemPO> saleList;
+	
+	/**
+	* 赠品列表
+	*/
+	private ArrayList<PresentLineItemPO> giftList;
 	   
 	/**
 	* 折让前总额
@@ -90,35 +105,20 @@ public class SalePO implements Serializable {
 	*/
 	private int documentType;
 	
-	/**
-	 * 构造方法
-	 * @param receiptId
-	 * @param time
-	 * @param customerId
-	 * @param salsman
-	 * @param operatorId
-	 * @param storage
-	 * @param saleList
-	 * @param totalBeforeDiscount
-	 * @param discount
-	 * @param voucher
-	 * @param totalAfterDiscount
-	 * @param remark
-	 * @param approvalState
-	 * @param isWriteOff
-	 * @param receiptType
-	 */
-	public SalePO(String receiptId,String time,String customerId,String salsman,
-			String operatorId,String storage,ArrayList<CommodityLineItemPO> saleList,double totalBeforeDiscount,
+	public SalePO(String receiptId,String time,String customerId,String customerName,int customerVIP,String salsman,String salesman,
+			String operatorId,String storage,ArrayList<CommodityLineItemPO> saleList,ArrayList<PresentLineItemPO> giftList,double totalBeforeDiscount,
 			double discount,double voucher,double totalAfterDiscount,String remark,
 			int documentStatus,boolean isWriteOff,int documentType){
 		this.receiptId=receiptId;
 		this.time = time;
 		this.customerId=customerId;
+		this.customerName=customerName;
+		this.customerVIP=customerVIP;
 		this.salesman = salsman;
 		this.operatorId=operatorId;
 		this.storage=storage;
 		this.saleList=saleList;
+		this.giftList=giftList;
 		this.totalBeforeDiscount=totalBeforeDiscount;
 		this.discount=discount;
 		this.voucher=voucher;
@@ -129,6 +129,10 @@ public class SalePO implements Serializable {
 		this.documentType=documentType;
 	}
 	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public String getReceiptId() {
 		return receiptId;
 	}
@@ -152,7 +156,7 @@ public class SalePO implements Serializable {
 	public ArrayList<CommodityLineItemPO> getSaleList() {
 		return saleList;
 	}
-
+	
 	public double getTotalBeforeDiscount() {
 		return totalBeforeDiscount;
 	}
@@ -191,6 +195,18 @@ public class SalePO implements Serializable {
 
 	public int getDocumentType() {
 		return documentType;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public int getCustomerVIP() {
+		return customerVIP;
+	}
+
+	public ArrayList<PresentLineItemPO> getGiftList() {
+		return giftList;
 	}
 	
 }

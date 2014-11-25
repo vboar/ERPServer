@@ -20,4 +20,8 @@ public interface CustomerGiftDataservice extends Remote {
 	
 	public ArrayList<CustomerGiftPO> show() throws RemoteException;
 	
+	public ArrayList<CustomerGiftPO> findByValid(boolean valid) throws RemoteException;
+	
+	public CustomerGiftPO getById(String id) throws RemoteException;
+	
 }

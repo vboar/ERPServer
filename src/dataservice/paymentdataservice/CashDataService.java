@@ -22,5 +22,7 @@ public interface CashDataService extends Remote {
 	public ArrayList<CashPO> findById(String id) throws RemoteException;
 
 	public ArrayList<CashPO> findByTime(String time1, String time2) throws RemoteException;
-		
+	
+	public CashPO getById(String id) throws RemoteException;
+	
 }

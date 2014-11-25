@@ -39,7 +39,7 @@ public class LogDataServiceImpl extends UnicastRemoteObject implements LogDataSe
 	 * 根据日期时间段来查找PO对象
 	 */
 	@Override
-	public ArrayList<LogPO> find(String time1, String time2)
+	public ArrayList<LogPO> findByTime(String time1, String time2)
 			throws RemoteException {
 		ArrayList<LogPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<LogPO> lists = new ArrayList<LogPO>();

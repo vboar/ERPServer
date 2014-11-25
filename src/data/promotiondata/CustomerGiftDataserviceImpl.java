@@ -31,4 +31,17 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 		return null;
 	}
 
+	@Override
+	public ArrayList<CustomerGiftPO> findByValid(boolean valid)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CustomerGiftPO getById(String id) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

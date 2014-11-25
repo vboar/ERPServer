@@ -48,4 +48,9 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 		return null;
 	}
 
+	@Override
+	public CashPO getById(String id) throws RemoteException {
+		return null;
+	}
+
 }

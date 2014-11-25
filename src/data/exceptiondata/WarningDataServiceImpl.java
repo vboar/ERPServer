@@ -89,7 +89,8 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	private String poToString(WarningPO po) {
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getDocumentType() + ";";
 		for(WarningLineItemPO wPo: po.getList()) {
-			str += wPo.getId() + "," + wPo.getStockNumber() + "," + wPo.getWarningNumber() + "|";
+			str += wPo.getId() + "," + wPo.getName() + "," + wPo.getModel() + "," + 
+					wPo.getStockNumber() + "," + wPo.getWarningNumber() + "|";
 		}
 		if(po.getList().size() != 0) str += ";";
 		return str;
@@ -106,7 +107,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 		ArrayList<WarningLineItemPO> wPos = new ArrayList<WarningLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
-			wPos.add(new WarningLineItemPO(str3[0], Integer.parseInt(str3[1]), Integer.parseInt(str3[2])));
+			wPos.add(new WarningLineItemPO(str3[0], str3[1], str3[2], Integer.parseInt(str3[3]), Integer.parseInt(str3[4])));
 		}
 		WarningPO po = new WarningPO(str1[0], str1[1], wPos, Integer.parseInt(str1[2]));
 		return po;

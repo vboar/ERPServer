@@ -63,7 +63,8 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 	 */
 	private String poToString(StockPO po) {
 		return po.getBatch() + ";" + po.getBatchNumber() + ";" + po.getCommodityId()
-				+ ";" + po.getNumber() + ";" + po.getAvgPrice() + ";";
+				+ ";" + po.getCommodityName() + ";" + po.getCommodityModel() + ";" + 
+				po.getNumber() + ";" + po.getAvgPrice() + ";";
 	}
 	
 	/**
@@ -73,9 +74,9 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 	 */
 	private StockPO stringToPo(String s) {
 		String[] strs = s.split(";");
-		int number = Integer.parseInt(strs[3]);
-		double avgPrive = Double.parseDouble(strs[4]);
-		return new StockPO(strs[2], number, avgPrive, strs[0], strs[1]);
+		int number = Integer.parseInt(strs[5]);
+		double avgPrive = Double.parseDouble(strs[6]);
+		return new StockPO(strs[2], strs[3], strs[4], number, avgPrive, strs[0], strs[1]);
 	}
 	
 	/**

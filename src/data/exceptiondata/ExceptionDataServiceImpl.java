@@ -1,5 +1,5 @@
 /**
- * 报溢报损单数据层操作实现
+ * 报溢报损单数据操作实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -90,8 +90,17 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 		return lists;
 	}
 
+	/**
+	 * 根据ID准确查找PO对象
+	 */
 	@Override
 	public ExceptionPO getById(String id) throws RemoteException {
+		ArrayList<ExceptionPO> lists = this.stringToPoAll(d.readData());
+		for(ExceptionPO po: lists) {
+			if(id.equals(po.getId())) {
+				return po;
+			}
+		}
 		return null;
 	}
 	
@@ -104,7 +113,8 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getDocumentStatus() + ";" + 
 				po.getDocumentType() + ";" + po.isWriteoff() + ";";
 		for(ExceptionLineItemPO ePo: po.getList()) {
-			str += ePo.getId() + "," + ePo.getSystemNumber() + "," + ePo.getActualNumber() + "|";
+			str += ePo.getId() + "," + ePo.getName() + "," + ePo.getModel() + "," + 
+					ePo.getSystemNumber() + "," + ePo.getActualNumber() + "|";
 		}
 		if(po.getList().size() != 0) str += ";";
 		return str;
@@ -121,7 +131,8 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 		ArrayList<ExceptionLineItemPO> ePos = new ArrayList<ExceptionLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
-			ePos.add(new ExceptionLineItemPO(str3[0], Integer.parseInt(str3[1]), Integer.parseInt(str3[2])));
+			ePos.add(new ExceptionLineItemPO(str3[0], str3[1], str3[2], 
+					Integer.parseInt(str3[3]), Integer.parseInt(str3[4])));
 		}
 		ExceptionPO po = new ExceptionPO(str1[0], str1[1], ePos, Integer.parseInt(str1[2]), 
 				Integer.parseInt(str1[3]), Boolean.parseBoolean(str1[4]));

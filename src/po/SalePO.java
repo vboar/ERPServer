@@ -18,7 +18,7 @@ public class SalePO implements Serializable {
 	/**
 	* 单据编号
 	*/
-	private String receiptId;
+	private String id;
 	 
 	/**
 	* 创建时间
@@ -105,16 +105,17 @@ public class SalePO implements Serializable {
 	*/
 	private int documentType;
 	
-	public SalePO(String receiptId,String time,String customerId,String customerName,int customerVIP,String salsman,String salesman,
-			String operatorId,String storage,ArrayList<CommodityLineItemPO> saleList,ArrayList<PresentLineItemPO> giftList,double totalBeforeDiscount,
+	public SalePO(String id,String time,String customerId,String customerName,int customerVIP,String salesman,
+			String operatorId,String storage,ArrayList<CommodityLineItemPO> saleList,
+			ArrayList<PresentLineItemPO> giftList,double totalBeforeDiscount,
 			double discount,double voucher,double totalAfterDiscount,String remark,
 			int documentStatus,boolean isWriteOff,int documentType){
-		this.receiptId=receiptId;
+		this.id=id;
 		this.time = time;
 		this.customerId=customerId;
 		this.customerName=customerName;
 		this.customerVIP=customerVIP;
-		this.salesman = salsman;
+		this.salesman = salesman;
 		this.operatorId=operatorId;
 		this.storage=storage;
 		this.saleList=saleList;
@@ -133,8 +134,8 @@ public class SalePO implements Serializable {
 		return serialVersionUID;
 	}
 
-	public String getReceiptId() {
-		return receiptId;
+	public String getId() {
+		return id;
 	}
 
 	public String getTime() {

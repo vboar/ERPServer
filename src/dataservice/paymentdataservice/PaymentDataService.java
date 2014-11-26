@@ -1,5 +1,5 @@
 /**
- * 收付款单数据处理接口
+ * 收付款单数据操作接口
  * @author JaneLDQ
  * @date 2014/10/25
  */
@@ -26,5 +26,7 @@ public interface PaymentDataService extends Remote {
 	public ArrayList<PaymentPO> findByCustomer(String customerId) throws RemoteException;
 
 	public ArrayList<PaymentPO> findByOperator(String operator) throws RemoteException;
+	
+	public PaymentPO getById(String id) throws RemoteException;
 		
 }

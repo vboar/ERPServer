@@ -1,5 +1,5 @@
 /**
- * 现金费用单数据处理接口
+ * 现金费用单数据操作接口
  * @author JaneLDQ
  * @date 2014/10/25
  */
@@ -22,6 +22,8 @@ public interface CashDataService extends Remote {
 	public ArrayList<CashPO> findById(String id) throws RemoteException;
 
 	public ArrayList<CashPO> findByTime(String time1, String time2) throws RemoteException;
+	
+	public ArrayList<CashPO> findByStatus(int status) throws RemoteException;
 	
 	public CashPO getById(String id) throws RemoteException;
 	

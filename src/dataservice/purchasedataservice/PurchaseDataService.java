@@ -1,5 +1,5 @@
 /**
- * 进货数据处理服务接口
+ * 进货数据操作接口
  * @author oneoneO
  * @date 2014/10/26
  */
@@ -21,9 +21,7 @@ public interface PurchaseDataService extends Remote {
 	
 	public ArrayList<PurchasePO> findByCustomer(String customer) throws RemoteException;
 	
-	public ArrayList<PurchasePO> findBySalesman(String salesman) throws RemoteException;
-	
-	public ArrayList<PurchasePO> findByStorage(String Storage) throws RemoteException;
+	public ArrayList<PurchasePO> findByStorage(String storage) throws RemoteException;
 
 	public ArrayList<PurchasePO> findByStatus(int status) throws RemoteException;
 

@@ -41,6 +41,17 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	@Override
 	public void update(ExceptionPO po) throws RemoteException {
+		String[] temp = this.poToString(po).split(";");
+		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
+		for(String[] s: lists) {
+			if(s[0].equals(po.getId())) {
+				for(int i = 1; i < s.length; i++) {
+					s[i] = temp[i];
+				}
+				break;
+			}
+		}
+		d.writeData(d.arrayToStringAll(lists));
 	}
 
 	/**

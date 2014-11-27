@@ -7,6 +7,7 @@
 package data.datafactory;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import data.accountdata.AccountDataServiceImpl;
 import data.commoditydata.CategoryDataServiceImpl;
@@ -51,21 +52,30 @@ import dataservice.systemdateservice.SystemDataService;
 import dataservice.userdataservice.UserDataService;
 
 /**
- * Lazy initialization holder class 单例模式
+ * 单例模式
  *
  */
-public class DataFactoryImpl implements DataFactory {
+public class DataFactoryImpl extends UnicastRemoteObject implements DataFactory {
+
+	private static final long serialVersionUID = 1L;
+
+	private static DataFactoryImpl dataFactory;
 	
-	private DataFactoryImpl() {}
+	public DataFactoryImpl() throws RemoteException {
+		super();
+	}
 	
 	public static DataFactoryImpl getInstance() {
-		return DataFactoryImplHolder.dataFactory;
+		if(dataFactory == null) {
+			try {
+				dataFactory = new DataFactoryImpl();
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+		return dataFactory;
 	}
-	
-	private static class DataFactoryImplHolder {
-		private static DataFactoryImpl dataFactory = new DataFactoryImpl();
-	}
-	
+
 	@Override
 	public AccountDataService getAccountData() throws RemoteException {
 		return new AccountDataServiceImpl();

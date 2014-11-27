@@ -1,5 +1,5 @@
 /**
- * 特殊促销策略数据接口
+ * 特价包促销策略数据操作接口
  * @author Vboar
  * @date 2014/11/15
  */
@@ -20,7 +20,7 @@ public interface SpecialOfferDataService extends Remote {
 	
 	public ArrayList<SpecialOfferPO> show() throws RemoteException;
 	
-	public ArrayList<SpecialOfferPO> findByValid() throws RemoteException;
+	public ArrayList<SpecialOfferPO> findByValid(boolean valid) throws RemoteException;
 	
 	public SpecialOfferPO getById(String id) throws RemoteException;
 	

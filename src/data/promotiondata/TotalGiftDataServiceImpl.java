@@ -97,9 +97,8 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 * @return
 	 */
 	private String poToString(TotalGiftPO po) {
-		String str = po.getId() + ";" + po.getTotal() + ";" + po.getDiscount() + ";" + 
-				po.getVoucher() + ";" + po.getStartTime() + ";" + po.getEndTime() + ";" + 
-				po.isValid() + ";";
+		String str = po.getId() + ";" + po.getTotal() + ";" + po.getVoucher() + ";" + 
+				po.getStartTime() + ";" + po.getEndTime() + ";" + po.isValid() + ";";
 		for(PresentLineItemPO pPo: po.getGiftInfo()) {
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
 					pPo.getNumber() + "|";
@@ -115,7 +114,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	private TotalGiftPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[7].split("|");
+		String[] str2 = str1[6].split("|");
 		ArrayList<PresentLineItemPO> pPos = new ArrayList<PresentLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -123,8 +122,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 					Integer.parseInt(str3[3])));
 		}
 		TotalGiftPO po = new TotalGiftPO(str1[0], Double.parseDouble(str1[1]), pPos,
-				Double.parseDouble(str1[2]), Double.parseDouble(str1[3]), str1[4], str1[5],
-				Boolean.parseBoolean(str1[6]));
+				Double.parseDouble(str1[2]), str1[3], str1[4], Boolean.parseBoolean(str1[5]));
 		return po;
 	}
 	

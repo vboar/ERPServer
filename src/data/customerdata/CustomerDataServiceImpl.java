@@ -129,7 +129,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 		return po.getId() + ";" + po.getCategory() + ";" + po.getLevel() + ";" + 
 				po.getName() + ";" + po.getPhoneNumber() + ";" + po.getAddress() + ";" + 
 				po.getPostalCode() + ";" + po.getEmail() + ";" + po.getCreditLimit() + ";" + 
-				po.getReceivables() + ";" + po.getPaybles() + ";" + po.getDefaultOperatorId()
+				po.getReceivables() + ";" + po.getPaybles() + ";" + po.getSalesman()
 				 + ";" + po.isDeletable() + ";";
 	}
 	

@@ -125,6 +125,22 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	}
 	
 	/**
+	 * 根据单据状态查找PO对象
+	 */
+	@Override
+	public ArrayList<PaymentPO> findByStatus(int status) throws RemoteException {
+		// TODO Auto-generated method stub
+		ArrayList<PaymentPO> tLists = this.stringToPoAll(d.readData());
+		ArrayList<PaymentPO> lists = new ArrayList<PaymentPO>();
+		for(PaymentPO po: tLists) {
+			if(po.getApprovalStatus() == status) {
+				lists.add(po);
+			}
+		}
+		return lists;
+	}
+	
+	/**
 	 * 根据ID准确查找PO对象
 	 */
 	@Override

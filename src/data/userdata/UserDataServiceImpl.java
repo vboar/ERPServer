@@ -33,6 +33,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	@Override
 	public void insert(UserPO po) throws RemoteException {
 		d.writeDataAdd(this.poToString(po));
+
 	}
 
 	/**
@@ -40,6 +41,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public void delete(UserPO po) throws RemoteException {
+		print();
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
 			if(s[0].equals(po.getId())) {
@@ -55,6 +57,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public void update(UserPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -73,6 +76,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public ArrayList<UserPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<UserPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<UserPO> lists = new ArrayList<UserPO>();
 		for(UserPO po: tLists) {
@@ -88,6 +92,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public ArrayList<UserPO> findByName(String name) throws RemoteException {
+		print();
 		ArrayList<UserPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<UserPO> lists = new ArrayList<UserPO>();
 		for(UserPO po: tLists) {
@@ -103,6 +108,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public ArrayList<UserPO> findByType(int type) throws RemoteException {
+		print();
 		ArrayList<UserPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<UserPO> lists = new ArrayList<UserPO>();
 		for(UserPO po: tLists) {
@@ -118,6 +124,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public UserPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<UserPO> lists = this.stringToPoAll(d.readData());
 		for(UserPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -132,6 +139,7 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 	 */
 	@Override
 	public ArrayList<UserPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 	
@@ -168,6 +176,11 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

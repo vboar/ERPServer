@@ -100,10 +100,10 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 * 根据ID准确查找PO对象
 	 */
 	@Override
-	public AccountPO findById(String id) throws RemoteException {
+	public AccountPO findByAccount(String account) throws RemoteException {
 		ArrayList<AccountPO> lists = this.stringToPoAll(d.readData());
 		for(AccountPO po: lists) {
-			if(id.equals(po.getAccount())) {
+			if(account.equals(po.getAccount())) {
 				return po;
 			}
 		}

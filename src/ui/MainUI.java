@@ -10,9 +10,13 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
@@ -90,7 +94,7 @@ public class MainUI extends JFrame {
 	/**
 	 * IP地址
 	 */
-	public String address = "127.0.0.1";
+	public String address;
 	
 	/**
 	 * 服务开启状态
@@ -120,9 +124,16 @@ public class MainUI extends JFrame {
 	 * 创建MainUI
 	 */
 	public MainUI() {
+		try {
+			this.address = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 		this.createUI();
 		this.initButtons();
 		this.initLabels();
+		this.setClose();
+		this.updateInfo();
 		this.repaint();
 	}
 	
@@ -166,7 +177,7 @@ public class MainUI extends JFrame {
 		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 		this.setLocation((screenWidth-WIDTH)>>1, (screenHeight-HEIGHT)>>1);
-		this.setDefaultCloseOperation(3);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
@@ -180,7 +191,7 @@ public class MainUI extends JFrame {
 	private void initButtons() {
 		
 		btnStart = new JButton("启动服务");
-		btnStart.setBounds(550, 10, 100, 25);
+		btnStart.setBounds(600, 10, 80, 25);
 		btnStart.addActionListener(new ActionListener() {
 
 			@Override
@@ -190,6 +201,7 @@ public class MainUI extends JFrame {
 						reg = LocateRegistry.createRegistry(port);
 						DataFactory dataFacory = new DataFactoryImpl();
 						Naming.rebind("rmi://" + address + ":" + port + "/DataFactory", dataFacory);
+						Naming.rebind("rmi://127.0.0.1:" + port + "/DataFactory", dataFacory);
 						runningInfo.setText("服务运行中...");
 						isOn = true;
 					} else {
@@ -204,7 +216,7 @@ public class MainUI extends JFrame {
 		panel.add(btnStart);
 		
 		btnStop = new JButton("停止服务");
-		btnStop.setBounds(670, 10, 100, 25);
+		btnStop.setBounds(690, 10, 80, 25);
 		btnStop.addActionListener(new ActionListener() {
 
 			@Override
@@ -225,7 +237,7 @@ public class MainUI extends JFrame {
 		panel.add(btnStop);
 		
 		btnChange = new JButton("更改端口");
-		btnChange.setBounds(320, 10, 100, 25);
+		btnChange.setBounds(360, 10, 80, 25);
 		btnChange.addActionListener(new ActionListener() {
 
 			@Override
@@ -251,10 +263,10 @@ public class MainUI extends JFrame {
 		panel.add(labInfo);
 		
 		runningInfo = new JLabel("服务未开启！");
-		runningInfo.setBounds(440, 10, 150, 25);
+		runningInfo.setBounds(480, 10, 150, 25);
 		panel.add(runningInfo);
 		
-		outputArea = new JTextArea("监控系统运行：\n");
+		outputArea = new JTextArea();
 		outputArea.setBounds(20, 50, 750, 400);
 		outputArea.setEditable(false);
 		// 自动换行
@@ -268,6 +280,25 @@ public class MainUI extends JFrame {
 		// 获取重定向流
 		this.redirectSystemStreams();
 	}
+	
+	/**
+	 * 设置关闭按钮
+	 */
+	private void setClose() {
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				int result = JOptionPane.showConfirmDialog(MainUI.this, "确认退出？","系统提示",
+						JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				if(result == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				} else {
+					return;
+				}
+			}
+		});
+	}
 
 	public int getPort() {
 		return port;
@@ -277,6 +308,9 @@ public class MainUI extends JFrame {
 		this.port = port;
 	}
 	
+	/**
+	 * 显示改变端口框体
+	 */
 	private void showChangeDialog() {
 		dialog = new ChangeDialog(this, panel);
 		dialog.setVisible(true);
@@ -287,7 +321,12 @@ public class MainUI extends JFrame {
 	 */
 	public void updateInfo() {
 		labInfo.setText("服务器信息(IP:PORT)：" + this.address + ":" + this.port);
+		outputArea.append("==============================\n");
+		outputArea.append("本服务器回送IP地址为：127.0.0.1，端口为：" + this.port + "\n");
+		outputArea.append("本服务器真实IP地址为：" + this.address + "，端口为：" + this.port + "\n");
+		outputArea.append("==============================\n");
 	}
+	
 	
 	/**
 	 * 更新输出区域线程

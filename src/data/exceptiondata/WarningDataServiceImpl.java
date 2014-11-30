@@ -33,6 +33,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	 */
 	@Override
 	public void insert(WarningPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -42,6 +43,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	@Override
 	public ArrayList<WarningPO> show(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<WarningPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<WarningPO> lists = new ArrayList<WarningPO>();
 		for(WarningPO po: tLists) {
@@ -57,6 +59,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	 */
 	@Override
 	public ArrayList<WarningPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<WarningPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<WarningPO> lists = new ArrayList<WarningPO>();
 		for(WarningPO po: tLists) {
@@ -72,6 +75,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	 */
 	@Override
 	public WarningPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<WarningPO> lists = this.stringToPoAll(d.readData());
 		for(WarningPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -124,6 +128,11 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

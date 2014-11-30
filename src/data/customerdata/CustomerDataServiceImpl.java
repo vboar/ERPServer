@@ -32,6 +32,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public void insert(CustomerPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public void delete(CustomerPO po) throws RemoteException {
+		print();
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
 			if(s[0].equals(po.getId())) {
@@ -55,6 +57,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public void update(CustomerPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -73,6 +76,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public ArrayList<CustomerPO> findByName(String name) throws RemoteException {
+		print();
 		ArrayList<CustomerPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CustomerPO> lists = new ArrayList<CustomerPO>();
 		for(CustomerPO po: tLists) {
@@ -88,6 +92,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public ArrayList<CustomerPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<CustomerPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CustomerPO> lists = new ArrayList<CustomerPO>();
 		for(CustomerPO po: tLists) {
@@ -103,6 +108,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public CustomerPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<CustomerPO> lists = this.stringToPoAll(d.readData());
 		for(CustomerPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -117,6 +123,7 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 	 */
 	@Override
 	public ArrayList<CustomerPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 	
@@ -161,6 +168,11 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

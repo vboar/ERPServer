@@ -32,6 +32,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public void insert(CategoryPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public void delete(CategoryPO po) throws RemoteException {
+		print();
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
 			if(s[0].equals(po.getId())) {
@@ -55,6 +57,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public void update(CategoryPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -73,6 +76,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public ArrayList<CategoryPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<CategoryPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CategoryPO> lists = new ArrayList<CategoryPO>();
 		for(CategoryPO po: tLists) {
@@ -88,6 +92,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public ArrayList<CategoryPO> findByName(String name) throws RemoteException {
+		print();
 		ArrayList<CategoryPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CategoryPO> lists = new ArrayList<CategoryPO>();
 		for(CategoryPO po: tLists) {
@@ -103,6 +108,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public CategoryPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<CategoryPO> lists = this.stringToPoAll(d.readData());
 		for(CategoryPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -117,6 +123,7 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	 */
 	@Override
 	public ArrayList<CategoryPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 	
@@ -151,6 +158,11 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

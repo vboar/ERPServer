@@ -32,6 +32,7 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 */
 	@Override
 	public void insert(AccountPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 */
 	@Override
 	public void delete(AccountPO po) throws RemoteException {
+		print();
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
 			if(s[0].equals(po.getAccount())) {
@@ -55,6 +57,7 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 */
 	@Override
 	public void update(AccountPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -73,6 +76,7 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 */
 	@Override
 	public ArrayList<AccountPO> show() throws RemoteException {
+		print();
 		ArrayList<String> strs = d.readData();
 		ArrayList<AccountPO> lists = new ArrayList<AccountPO>();
 		for(String s: strs) {
@@ -86,10 +90,27 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 */
 	@Override
 	public ArrayList<AccountPO> findByName(String name) throws RemoteException {
+		print();
 		ArrayList<AccountPO> tLists = this.show();
 		ArrayList<AccountPO> lists = new ArrayList<AccountPO>();
 		for(AccountPO po: tLists) {
 			if(po.getName().contains(name)) {
+				lists.add(po);
+			}
+		}
+		return lists;
+	}
+	
+	/**
+	 * 根据银行账号模糊查找PO对象
+	 */
+	@Override
+	public ArrayList<AccountPO> findByAccount(String account) throws RemoteException {
+		print();
+		ArrayList<AccountPO> tLists = this.show();
+		ArrayList<AccountPO> lists = new ArrayList<AccountPO>();
+		for(AccountPO po: tLists) {
+			if(po.getAccount().contains(account)) {
 				lists.add(po);
 			}
 		}
@@ -100,7 +121,8 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 * 根据ID准确查找PO对象
 	 */
 	@Override
-	public AccountPO findByAccount(String account) throws RemoteException {
+	public AccountPO getByAccount(String account) throws RemoteException {
+		print();
 		ArrayList<AccountPO> lists = this.stringToPoAll(d.readData());
 		for(AccountPO po: lists) {
 			if(account.equals(po.getAccount())) {
@@ -141,6 +163,11 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

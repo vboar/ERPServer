@@ -33,6 +33,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	@Override
 	public void insert(ExceptionPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	@Override
 	public void update(ExceptionPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -60,6 +62,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	@Override
 	public ArrayList<ExceptionPO> show(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<ExceptionPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<ExceptionPO> lists = new ArrayList<ExceptionPO>();
 		for(ExceptionPO po: tLists) {
@@ -75,6 +78,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	@Override
 	public ArrayList<ExceptionPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<ExceptionPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<ExceptionPO> lists = new ArrayList<ExceptionPO>();
 		for(ExceptionPO po: tLists) {
@@ -91,6 +95,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	@Override
 	public ArrayList<ExceptionPO> findByStatus(int status)
 			throws RemoteException {
+		print();
 		ArrayList<ExceptionPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<ExceptionPO> lists = new ArrayList<ExceptionPO>();
 		for(ExceptionPO po: tLists) {
@@ -106,6 +111,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	@Override
 	public ExceptionPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<ExceptionPO> lists = this.stringToPoAll(d.readData());
 		for(ExceptionPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -161,6 +167,11 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

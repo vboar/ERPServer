@@ -32,6 +32,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public void insert(CommodityPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public void delete(CommodityPO po) throws RemoteException {
+		print();
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
 			if(s[0].equals(po.getId())) {
@@ -55,6 +57,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public void update(CommodityPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -73,6 +76,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public ArrayList<CommodityPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<CommodityPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CommodityPO> lists = new ArrayList<CommodityPO>();
 		for(CommodityPO po: tLists) {
@@ -88,6 +92,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public ArrayList<CommodityPO> findByName(String name) throws RemoteException {
+		print();
 		ArrayList<CommodityPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CommodityPO> lists = new ArrayList<CommodityPO>();
 		for(CommodityPO po: tLists) {
@@ -103,6 +108,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public ArrayList<CommodityPO> findByModel(String model) throws RemoteException {
+		print();
 		ArrayList<CommodityPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CommodityPO> lists = new ArrayList<CommodityPO>();
 		for(CommodityPO po: tLists) {
@@ -118,6 +124,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public CommodityPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<CommodityPO> lists = this.stringToPoAll(d.readData());
 		for(CommodityPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -132,6 +139,7 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	 */
 	@Override
 	public ArrayList<CommodityPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 	
@@ -176,6 +184,11 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+	
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

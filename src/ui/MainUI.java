@@ -201,7 +201,6 @@ public class MainUI extends JFrame {
 						reg = LocateRegistry.createRegistry(port);
 						DataFactory dataFacory = new DataFactoryImpl();
 						Naming.rebind("rmi://" + address + ":" + port + "/DataFactory", dataFacory);
-						Naming.rebind("rmi://127.0.0.1:" + port + "/DataFactory", dataFacory);
 						runningInfo.setText("服务运行中...");
 						isOn = true;
 					} else {
@@ -322,8 +321,8 @@ public class MainUI extends JFrame {
 	public void updateInfo() {
 		labInfo.setText("服务器信息(IP:PORT)：" + this.address + ":" + this.port);
 		outputArea.append("==============================\n");
-		outputArea.append("本服务器回送IP地址为：127.0.0.1，端口为：" + this.port + "\n");
-		outputArea.append("本服务器真实IP地址为：" + this.address + "，端口为：" + this.port + "\n");
+		outputArea.append("本服务器回送地址为：127.0.0.1，端口为：" + this.port + "\n");
+		outputArea.append("本服务器内网地址为：" + this.address + "，端口为：" + this.port + "\n");
 		outputArea.append("==============================\n");
 	}
 	

@@ -6,8 +6,12 @@
 
 package ui;
 
-import java.awt.Font;
-import java.awt.Toolkit;
+import data.datafactory.DataFactoryImpl;
+import dataservice.datafactoryservice.DataFactory;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -21,22 +25,6 @@ import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-
-import data.datafactory.DataFactoryImpl;
-import dataservice.datafactoryservice.DataFactory;
 
 @SuppressWarnings("serial")
 public class MainUI extends JFrame {
@@ -199,8 +187,8 @@ public class MainUI extends JFrame {
 				try {
 					if(!isOn) {
 						reg = LocateRegistry.createRegistry(port);
-						DataFactory dataFacory = new DataFactoryImpl();
-						Naming.rebind("rmi://" + address + ":" + port + "/DataFactory", dataFacory);
+						DataFactory dataFactory = new DataFactoryImpl();
+						Naming.rebind("rmi://" + address + ":" + port + "/DataFactory", dataFactory);
 						runningInfo.setText("服务运行中...");
 						isOn = true;
 					} else {

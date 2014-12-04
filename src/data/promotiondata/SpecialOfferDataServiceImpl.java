@@ -6,14 +6,14 @@
 
 package data.promotiondata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.promotiondataservice.SpecialOfferDataService;
+import po.CommodityLineItemPO;
+import po.SpecialOfferPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CommodityLineItemPO;
-import po.SpecialOfferPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.promotiondataservice.SpecialOfferDataService;
 
 public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements SpecialOfferDataService {
 
@@ -33,6 +33,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public void insert(SpecialOfferPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public void update(SpecialOfferPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -59,6 +61,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public ArrayList<SpecialOfferPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -67,6 +70,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public ArrayList<SpecialOfferPO> findByValid(boolean valid) throws RemoteException {
+		print();
 		ArrayList<SpecialOfferPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SpecialOfferPO> lists = new ArrayList<SpecialOfferPO>();
 		for(SpecialOfferPO po: tLists) {
@@ -82,6 +86,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public SpecialOfferPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<SpecialOfferPO> lists = this.stringToPoAll(d.readData());
 		for(SpecialOfferPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -102,7 +107,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 		for(CommodityLineItemPO pPo: po.getCommodityList()) {
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
 					pPo.getNumber() + "," + pPo.getPrice() + "," + pPo.getTotal() + "," + 
-					pPo.getRemark()+ "|";
+					pPo.getRemark()+ DataIOUtility.splitStr;
 		}
 		if(po.getCommodityList().size() != 0) str += ";";
 		return str;
@@ -115,7 +120,7 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 	 */
 	private SpecialOfferPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[5].split("|");
+		String[] str2 = str1[5].split(DataIOUtility.splitStr);
 		ArrayList<CommodityLineItemPO> cPos = new ArrayList<CommodityLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -138,6 +143,11 @@ public class SpecialOfferDataServiceImpl extends UnicastRemoteObject implements 
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

@@ -6,14 +6,14 @@
 
 package data.messagedata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.messagedataservice.MessageDataService;
+import po.MessagePO;
+import po.UserPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.MessagePO;
-import po.UserPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.messagedataservice.MessageDataService;
 
 public class MessageDataServiceImpl extends UnicastRemoteObject implements MessageDataService {
 	
@@ -33,6 +33,7 @@ public class MessageDataServiceImpl extends UnicastRemoteObject implements Messa
 	 */
 	@Override
 	public void insert(MessagePO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class MessageDataServiceImpl extends UnicastRemoteObject implements Messa
 	 */
 	@Override
 	public void delete(MessagePO po) throws RemoteException {
+		print();
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
 			if(s[0].equals(po.getId())) {
@@ -56,6 +58,7 @@ public class MessageDataServiceImpl extends UnicastRemoteObject implements Messa
 	 */
 	@Override
 	public void update(MessagePO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -74,6 +77,7 @@ public class MessageDataServiceImpl extends UnicastRemoteObject implements Messa
 	 */
 	@Override
 	public ArrayList<MessagePO> showByUser(UserPO po) throws RemoteException {
+		print();
 		ArrayList<MessagePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<MessagePO> lists = new ArrayList<MessagePO>();
 		for(MessagePO mpo: tLists) {
@@ -116,6 +120,11 @@ public class MessageDataServiceImpl extends UnicastRemoteObject implements Messa
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

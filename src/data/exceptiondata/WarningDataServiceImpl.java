@@ -6,14 +6,14 @@
 
 package data.exceptiondata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.exceptiondataservice.WarningDataService;
+import po.WarningLineItemPO;
+import po.WarningPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.WarningLineItemPO;
-import po.WarningPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.exceptiondataservice.WarningDataService;
 
 public class WarningDataServiceImpl extends UnicastRemoteObject implements WarningDataService {
 	
@@ -94,7 +94,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getDocumentType() + ";";
 		for(WarningLineItemPO wPo: po.getList()) {
 			str += wPo.getId() + "," + wPo.getName() + "," + wPo.getModel() + "," + 
-					wPo.getStockNumber() + "," + wPo.getWarningNumber() + "|";
+					wPo.getStockNumber() + "," + wPo.getWarningNumber() + DataIOUtility.splitStr;
 		}
 		if(po.getList().size() != 0) str += ";";
 		return str;
@@ -107,7 +107,7 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	 */
 	private WarningPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[3].split("|");
+		String[] str2 = str1[3].split(DataIOUtility.splitStr);
 		ArrayList<WarningLineItemPO> wPos = new ArrayList<WarningLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");

@@ -6,14 +6,14 @@
 
 package data.paymentdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.paymentdataservice.CashDataService;
+import po.CashPO;
+import po.ClauseLineItemPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CashPO;
-import po.ClauseLineItemPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.paymentdataservice.CashDataService;
 
 public class CashDataServiceImpl extends UnicastRemoteObject implements CashDataService {
 	
@@ -33,6 +33,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	@Override
 	public void insert(CashPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	@Override
 	public void update(CashPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -59,6 +61,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	@Override
 	public ArrayList<CashPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -67,6 +70,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	@Override
 	public ArrayList<CashPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<CashPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CashPO> lists = new ArrayList<CashPO>();
 		for(CashPO po: tLists) {
@@ -83,6 +87,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	@Override
 	public ArrayList<CashPO> findByTime(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<CashPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CashPO> lists = new ArrayList<CashPO>();
 		for(CashPO po: tLists) {
@@ -98,6 +103,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	@Override
 	public ArrayList<CashPO> findByStatus(int status) throws RemoteException {
+		print();
 		ArrayList<CashPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CashPO> lists = new ArrayList<CashPO>();
 		for(CashPO po: tLists) {
@@ -113,6 +119,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	@Override
 	public CashPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<CashPO> lists = this.stringToPoAll(d.readData());
 		for(CashPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -132,7 +139,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 				po.getBankAccount() + ";" + po.getTotal() + ";" + po.getDocumentStatus() + ";" + 
 				po.isWriteOff() + ";" + po.getDocumentType() + ";";
 		for(ClauseLineItemPO cPo: po.getClauseList()) {
-			str += cPo.getName() + "," + cPo.getAccount() + "," + cPo.getRemark() + "|";
+			str += cPo.getName() + "," + cPo.getAccount() + "," + cPo.getRemark() + DataIOUtility.splitStr;
 		}
 		if(po.getClauseList().size() != 0) str += ";";
 		return str;
@@ -145,7 +152,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	private CashPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[8].split("|");
+		String[] str2 = str1[8].split(DataIOUtility.splitStr);
 		ArrayList<ClauseLineItemPO> cPos = new ArrayList<ClauseLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -168,6 +175,11 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

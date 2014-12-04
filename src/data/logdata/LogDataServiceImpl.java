@@ -6,13 +6,13 @@
 
 package data.logdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.logdataservice.LogDataService;
+import po.LogPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.LogPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.logdataservice.LogDataService;
 
 public class LogDataServiceImpl extends UnicastRemoteObject implements LogDataService {
 	
@@ -32,6 +32,7 @@ public class LogDataServiceImpl extends UnicastRemoteObject implements LogDataSe
 	 */
 	@Override
 	public void insert(LogPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class LogDataServiceImpl extends UnicastRemoteObject implements LogDataSe
 	@Override
 	public ArrayList<LogPO> findByTime(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<LogPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<LogPO> lists = new ArrayList<LogPO>();
 		for(LogPO po: tLists) {
@@ -56,6 +58,7 @@ public class LogDataServiceImpl extends UnicastRemoteObject implements LogDataSe
 	 */
 	@Override
 	public ArrayList<LogPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 	
@@ -90,6 +93,11 @@ public class LogDataServiceImpl extends UnicastRemoteObject implements LogDataSe
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

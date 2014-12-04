@@ -6,14 +6,14 @@
 
 package data.saledata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.saledataservice.SaleDataService;
+import po.CommodityLineItemPO;
+import po.SalePO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CommodityLineItemPO;
-import po.SalePO;
-import data.dataioutility.DataIOUtility;
-import dataservice.saledataservice.SaleDataService;
 
 public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleDataService {
 
@@ -33,6 +33,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	@Override
 	public void insert(SalePO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	@Override
 	public void update(SalePO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -60,6 +62,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	@Override
 	public ArrayList<SalePO> findByTime(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<SalePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SalePO> lists = new ArrayList<SalePO>();
 		for(SalePO po: tLists) {
@@ -76,6 +79,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	@Override
 	public ArrayList<SalePO> findByCustomer(String customer)
 			throws RemoteException {
+		print();
 		ArrayList<SalePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SalePO> lists = new ArrayList<SalePO>();
 		for(SalePO po: tLists) {
@@ -92,6 +96,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	@Override
 	public ArrayList<SalePO> findBySalesman(String salesman)
 			throws RemoteException {
+		print();
 		ArrayList<SalePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SalePO> lists = new ArrayList<SalePO>();
 		for(SalePO po: tLists) {
@@ -108,6 +113,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	@Override
 	public ArrayList<SalePO> findByStorage(String storage)
 			throws RemoteException {
+		print();
 		ArrayList<SalePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SalePO> lists = new ArrayList<SalePO>();
 		for(SalePO po: tLists) {
@@ -123,6 +129,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	@Override
 	public ArrayList<SalePO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -131,6 +138,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	@Override
 	public ArrayList<SalePO> findByStatus(int status) throws RemoteException {
+		print();
 		ArrayList<SalePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SalePO> lists = new ArrayList<SalePO>();
 		for(SalePO po: tLists) {
@@ -146,6 +154,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	@Override
 	public SalePO getById(String id) throws RemoteException {
+		print();
 		ArrayList<SalePO> lists = this.stringToPoAll(d.readData());
 		for(SalePO po: lists) {
 			if(id.equals(po.getId())) {
@@ -170,7 +179,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
 					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getRemark()
-					 + "," + cPo.getRemark()+ "|";
+					 + "," + cPo.getRemark()+ DataIOUtility.splitStr;
 		}
 		if(po.getSaleList().size() != 0) str += ";";
 		return str;
@@ -183,7 +192,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	private SalePO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[17].split("|");
+		String[] str2 = str1[17].split(DataIOUtility.splitStr);
 		ArrayList<CommodityLineItemPO> tPos = new ArrayList<CommodityLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -209,6 +218,11 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

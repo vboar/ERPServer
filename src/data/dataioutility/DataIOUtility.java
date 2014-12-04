@@ -19,6 +19,8 @@ public class DataIOUtility {
 	private String fatherPath = "data/currentdata/";
 	
 	private String path;
+
+	public static final String splitStr = "#";
 	
 	public DataIOUtility(String path) {
 		this.path = path;

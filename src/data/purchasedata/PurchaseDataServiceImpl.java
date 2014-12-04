@@ -6,14 +6,14 @@
 
 package data.purchasedata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.purchasedataservice.PurchaseDataService;
+import po.CommodityLineItemPO;
+import po.PurchasePO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CommodityLineItemPO;
-import po.PurchasePO;
-import data.dataioutility.DataIOUtility;
-import dataservice.purchasedataservice.PurchaseDataService;
 
 public class PurchaseDataServiceImpl extends UnicastRemoteObject implements PurchaseDataService {
 	
@@ -33,6 +33,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 */
 	@Override
 	public void insert(PurchasePO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 */
 	@Override
 	public void update(PurchasePO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -60,6 +62,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	@Override
 	public ArrayList<PurchasePO> findByTime(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<PurchasePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PurchasePO> lists = new ArrayList<PurchasePO>();
 		for(PurchasePO po: tLists) {
@@ -76,6 +79,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	@Override
 	public ArrayList<PurchasePO> findByCustomer(String customer)
 			throws RemoteException {
+		print();
 		ArrayList<PurchasePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PurchasePO> lists = new ArrayList<PurchasePO>();
 		for(PurchasePO po: tLists) {
@@ -92,6 +96,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	@Override
 	public ArrayList<PurchasePO> findByStorage(String storage)
 			throws RemoteException {
+		print();
 		ArrayList<PurchasePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PurchasePO> lists = new ArrayList<PurchasePO>();
 		for(PurchasePO po: tLists) {
@@ -107,6 +112,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 */
 	@Override
 	public ArrayList<PurchasePO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -116,6 +122,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	@Override
 	public ArrayList<PurchasePO> findByStatus(int status)
 			throws RemoteException {
+		print();
 		ArrayList<PurchasePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PurchasePO> lists = new ArrayList<PurchasePO>();
 		for(PurchasePO po: tLists) {
@@ -131,6 +138,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 */
 	@Override
 	public PurchasePO getById(String id) throws RemoteException {
+		print();
 		ArrayList<PurchasePO> lists = this.stringToPoAll(d.readData());
 		for(PurchasePO po: lists) {
 			if(id.equals(po.getId())) {
@@ -153,7 +161,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
 					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getRemark()
-					 + "," + cPo.getRemark()+ "|";
+					 + "," + cPo.getRemark()+ DataIOUtility.splitStr;
 		}
 		if(po.getSaleList().size() != 0) str += ";";
 		return str;
@@ -166,7 +174,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 */
 	private PurchasePO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[11].split("|");
+		String[] str2 = str1[11].split(DataIOUtility.splitStr);
 		ArrayList<CommodityLineItemPO> tPos = new ArrayList<CommodityLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -191,6 +199,11 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

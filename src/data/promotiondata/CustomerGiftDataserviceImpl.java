@@ -6,14 +6,14 @@
 
 package data.promotiondata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.promotiondataservice.CustomerGiftDataservice;
+import po.CustomerGiftPO;
+import po.PresentLineItemPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CustomerGiftPO;
-import po.PresentLineItemPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.promotiondataservice.CustomerGiftDataservice;
 
 public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements CustomerGiftDataservice {
 
@@ -33,6 +33,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public void insert(CustomerGiftPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public void update(CustomerGiftPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -59,6 +61,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public ArrayList<CustomerGiftPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -68,6 +71,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 	@Override
 	public ArrayList<CustomerGiftPO> findByValid(boolean valid)
 			throws RemoteException {
+		print();
 		ArrayList<CustomerGiftPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<CustomerGiftPO> lists = new ArrayList<CustomerGiftPO>();
 		for(CustomerGiftPO po: tLists) {
@@ -83,6 +87,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 	 */
 	@Override
 	public CustomerGiftPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<CustomerGiftPO> lists = this.stringToPoAll(d.readData());
 		for(CustomerGiftPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -103,7 +108,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 				po.isValid() + ";";
 		for(PresentLineItemPO pPo: po.getGiftInfo()) {
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
-					pPo.getNumber() + "|";
+					pPo.getNumber() + DataIOUtility.splitStr;
 		}
 		if(po.getGiftInfo().size() != 0) str += ";";
 		return str;
@@ -116,7 +121,7 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 	 */
 	private CustomerGiftPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[7].split("|");
+		String[] str2 = str1[7].split(DataIOUtility.splitStr);
 		ArrayList<PresentLineItemPO> pPos = new ArrayList<PresentLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -142,4 +147,8 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 		return lists;
 	}
 
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
+	}
 }

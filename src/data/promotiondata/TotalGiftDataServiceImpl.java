@@ -6,14 +6,14 @@
 
 package data.promotiondata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.promotiondataservice.TotalGiftDataService;
+import po.PresentLineItemPO;
+import po.TotalGiftPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.PresentLineItemPO;
-import po.TotalGiftPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.promotiondataservice.TotalGiftDataService;
 
 public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements TotalGiftDataService {
 
@@ -33,6 +33,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	@Override
 	public void insert(TotalGiftPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	@Override
 	public void update(TotalGiftPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -59,6 +61,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	@Override
 	public ArrayList<TotalGiftPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -67,6 +70,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	@Override
 	public ArrayList<TotalGiftPO> findByValid(boolean valid) throws RemoteException {
+		print();
 		ArrayList<TotalGiftPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<TotalGiftPO> lists = new ArrayList<TotalGiftPO>();
 		for(TotalGiftPO po: tLists) {
@@ -82,6 +86,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	@Override
 	public TotalGiftPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<TotalGiftPO> lists = this.stringToPoAll(d.readData());
 		for(TotalGiftPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -101,7 +106,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 				po.getStartTime() + ";" + po.getEndTime() + ";" + po.isValid() + ";";
 		for(PresentLineItemPO pPo: po.getGiftInfo()) {
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
-					pPo.getNumber() + "|";
+					pPo.getNumber() + DataIOUtility.splitStr;
 		}
 		if(po.getGiftInfo().size() != 0) str += ";";
 		return str;
@@ -114,7 +119,7 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 	 */
 	private TotalGiftPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[6].split("|");
+		String[] str2 = str1[6].split(DataIOUtility.splitStr);
 		ArrayList<PresentLineItemPO> pPos = new ArrayList<PresentLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -137,6 +142,11 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

@@ -6,14 +6,14 @@
 
 package data.exceptiondata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.exceptiondataservice.ExceptionDataService;
+import po.ExceptionLineItemPO;
+import po.ExceptionPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.ExceptionLineItemPO;
-import po.ExceptionPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.exceptiondataservice.ExceptionDataService;
 
 public class ExceptionDataServiceImpl extends UnicastRemoteObject implements ExceptionDataService {
 
@@ -22,6 +22,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	private String path = "exception";
 	
 	private DataIOUtility d = null;
+
 
 	public ExceptionDataServiceImpl() throws RemoteException {
 		super();
@@ -131,7 +132,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 				po.getDocumentType() + ";" + po.isWriteoff() + ";";
 		for(ExceptionLineItemPO ePo: po.getList()) {
 			str += ePo.getId() + "," + ePo.getName() + "," + ePo.getModel() + "," + 
-					ePo.getSystemNumber() + "," + ePo.getActualNumber() + "|";
+					ePo.getSystemNumber() + "," + ePo.getActualNumber() + DataIOUtility.splitStr;
 		}
 		if(po.getList().size() != 0) str += ";";
 		return str;
@@ -144,7 +145,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	private ExceptionPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[5].split("|");
+		String[] str2 = str1[5].split(DataIOUtility.splitStr);
 		ArrayList<ExceptionLineItemPO> ePos = new ArrayList<ExceptionLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");

@@ -5,14 +5,14 @@
  */
 package data.paymentdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.paymentdataservice.PaymentDataService;
+import po.PaymentPO;
+import po.TransferLineItemPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.PaymentPO;
-import po.TransferLineItemPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.paymentdataservice.PaymentDataService;
 
 public class PaymentDataServiceImpl extends UnicastRemoteObject implements PaymentDataService {
 
@@ -32,6 +32,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	@Override
 	public void insert(PaymentPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	@Override
 	public void update(PaymentPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -58,6 +60,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	@Override
 	public ArrayList<PaymentPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 
@@ -66,6 +69,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	@Override
 	public ArrayList<PaymentPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<PaymentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PaymentPO> lists = new ArrayList<PaymentPO>();
 		for(PaymentPO po: tLists) {
@@ -82,6 +86,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	@Override
 	public ArrayList<PaymentPO> findByTime(String time1, String time2)
 			throws RemoteException {
+		print();
 		ArrayList<PaymentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PaymentPO> lists = new ArrayList<PaymentPO>();
 		for(PaymentPO po: tLists) {
@@ -98,6 +103,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	@Override
 	public ArrayList<PaymentPO> findByCustomer(String customerId)
 			throws RemoteException {
+		print();
 		ArrayList<PaymentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PaymentPO> lists = new ArrayList<PaymentPO>();
 		for(PaymentPO po: tLists) {
@@ -114,6 +120,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	@Override
 	public ArrayList<PaymentPO> findByOperator(String operator)
 			throws RemoteException {
+		print();
 		ArrayList<PaymentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PaymentPO> lists = new ArrayList<PaymentPO>();
 		for(PaymentPO po: tLists) {
@@ -129,7 +136,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	@Override
 	public ArrayList<PaymentPO> findByStatus(int status) throws RemoteException {
-		// TODO Auto-generated method stub
+		print();
 		ArrayList<PaymentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PaymentPO> lists = new ArrayList<PaymentPO>();
 		for(PaymentPO po: tLists) {
@@ -145,6 +152,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	@Override
 	public PaymentPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<PaymentPO> lists = this.stringToPoAll(d.readData());
 		for(PaymentPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -164,7 +172,8 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 				po.getCustomerName() + ";" + po.getOperatorId() + ";" + po.getTotal() + ";" + 
 				po.getApprovalStatus() + ";" + po.isWriteOff() + ";" + po.getDocumentType() + ";";
 		for(TransferLineItemPO tPo: po.getTransferList()) {
-			str += tPo.getBankAccount() + "," + tPo.getAccount() + "," + tPo.getRemark() + "|";
+			str += tPo.getBankAccount() + "," + tPo.getAccount() + "," + tPo.getRemark()
+					+ DataIOUtility.splitStr;
 		}
 		if(po.getTransferList().size() != 0) str += ";";
 		return str;
@@ -177,7 +186,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	private PaymentPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[9].split("|");
+		String[] str2 = str1[9].split(DataIOUtility.splitStr);
 		ArrayList<TransferLineItemPO> tPos = new ArrayList<TransferLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -200,6 +209,11 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

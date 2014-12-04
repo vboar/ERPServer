@@ -5,14 +5,14 @@
  */
 package data.presentdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.presentdataservice.PresentDataService;
+import po.PresentLineItemPO;
+import po.PresentPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.PresentLineItemPO;
-import po.PresentPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.presentdataservice.PresentDataService;
 
 public class PresentDataServiceImpl extends UnicastRemoteObject implements PresentDataService {
 
@@ -32,6 +32,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	@Override
 	public void insert(PresentPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	@Override
 	public void update(PresentPO po) throws RemoteException {
+		print();
 		String[] temp = this.poToString(po).split(";");
 		ArrayList<String[]> lists = d.stringToArrayAll(d.readData());
 		for(String[] s: lists) {
@@ -58,6 +60,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	@Override
 	public ArrayList<PresentPO> findById(String id) {
+		print();
 		ArrayList<PresentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PresentPO> lists = new ArrayList<PresentPO>();
 		for(PresentPO po: tLists) {
@@ -73,6 +76,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	@Override
 	public ArrayList<PresentPO> findByTime(String time1, String time2) {
+		print();
 		ArrayList<PresentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PresentPO> lists = new ArrayList<PresentPO>();
 		for(PresentPO po: tLists) {
@@ -88,6 +92,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	@Override
 	public ArrayList<PresentPO> findByStatus(int status) throws RemoteException {
+		print();
 		ArrayList<PresentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PresentPO> lists = new ArrayList<PresentPO>();
 		for(PresentPO po: tLists) {
@@ -104,6 +109,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	@Override
 	public ArrayList<PresentPO> findByCustomerId(String customerId)
 			throws RemoteException {
+		print();
 		ArrayList<PresentPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<PresentPO> lists = new ArrayList<PresentPO>();
 		for(PresentPO po: tLists) {
@@ -119,6 +125,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	@Override
 	public PresentPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<PresentPO> lists = this.stringToPoAll(d.readData());
 		for(PresentPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -139,7 +146,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 				po.getDocumentType() + ";" + po.isWriteoff() + ";";
 		for(PresentLineItemPO pPo: po.getList()) {
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
-					pPo.getNumber() + "|";
+					pPo.getNumber() + DataIOUtility.splitStr;
 		}
 		if(po.getList().size() != 0) str += ";";
 		return str;
@@ -152,7 +159,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	private PresentPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[7].split("|");
+		String[] str2 = str1[7].split(DataIOUtility.splitStr);
 		ArrayList<PresentLineItemPO> pPos = new ArrayList<PresentLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -176,6 +183,11 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

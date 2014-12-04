@@ -6,13 +6,13 @@
 
 package data.initialdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.initialdataservice.InitialDataService;
+import po.InitialPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.InitialPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.initialdataservice.InitialDataService;
 
 public class InitialDataServiceImpl extends UnicastRemoteObject implements InitialDataService {
 
@@ -32,6 +32,7 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 	 */
 	@Override
 	public void insert(InitialPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -40,6 +41,7 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 	 */
 	@Override
 	public ArrayList<InitialPO> findById(String id) throws RemoteException {
+		print();
 		ArrayList<InitialPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<InitialPO> lists = new ArrayList<InitialPO>();
 		for(InitialPO po: tLists) {
@@ -55,6 +57,7 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 	 */
 	@Override
 	public InitialPO getById(String id) throws RemoteException {
+		print();
 		ArrayList<InitialPO> lists = this.stringToPoAll(d.readData());
 		for(InitialPO po: lists) {
 			if(id.equals(po.getId())) {
@@ -69,6 +72,7 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 	 */
 	@Override
 	public ArrayList<InitialPO> show() throws RemoteException {
+		print();
 		return this.stringToPoAll(d.readData());
 	}
 	
@@ -104,5 +108,9 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 		return lists;
 	}
 
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
+	}
 
 }

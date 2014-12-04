@@ -6,13 +6,13 @@
 
 package data.stockdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.stockdataservice.StockDataService;
+import po.StockPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.StockPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.stockdataservice.StockDataService;
 
 public class StockDataServiceImpl extends UnicastRemoteObject implements StockDataService {
 
@@ -32,6 +32,7 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 	 */
 	@Override
 	public void insert(StockPO po) throws RemoteException {
+		print();
 		d.writeDataAdd(this.poToString(po));
 	}
 
@@ -41,6 +42,7 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 	@Override
 	public ArrayList<StockPO> findByDate(String batch, String batchNumber)
 			throws RemoteException {
+		print();
 		ArrayList<StockPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<StockPO> lists = new ArrayList<StockPO>();
 		for(StockPO po: tLists) {
@@ -51,9 +53,13 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 		return lists;
 	}
 
+	/**
+	 * 返回所有PO对象
+	 */
 	@Override
 	public ArrayList<StockPO> show() throws RemoteException {
-		return null;
+		print();
+		return stringToPoAll(d.readData());
 	}
 	
 	/**
@@ -90,6 +96,11 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 			lists.add(this.stringToPo(s));
 		}
 		return lists;
+	}
+
+	private void print() {
+		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
+				Thread.currentThread().getStackTrace()[2].getMethodName());
 	}
 
 }

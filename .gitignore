@@ -1,6 +1,7 @@
 /bin
 /target
 /.idea
+/out
 
 *.class
 *.iml

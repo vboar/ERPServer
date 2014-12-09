@@ -6,9 +6,6 @@
 
 package data.datafactory;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import data.accountdata.AccountDataServiceImpl;
 import data.commoditydata.CategoryDataServiceImpl;
 import data.commoditydata.CommodityDataServiceImpl;
@@ -50,6 +47,9 @@ import dataservice.saledataservice.SaleDataService;
 import dataservice.stockdataservice.StockDataService;
 import dataservice.systemdateservice.SystemDataService;
 import dataservice.userdataservice.UserDataService;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 单例模式

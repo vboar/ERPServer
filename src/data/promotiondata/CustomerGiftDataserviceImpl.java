@@ -7,7 +7,7 @@
 package data.promotiondata;
 
 import data.dataioutility.DataIOUtility;
-import dataservice.promotiondataservice.CustomerGiftDataservice;
+import dataservice.promotiondataservice.CustomerGiftDataService;
 import po.CustomerGiftPO;
 import po.PresentLineItemPO;
 
@@ -15,7 +15,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements CustomerGiftDataservice {
+public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements CustomerGiftDataService {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -5,9 +5,6 @@
  */
 package dataservice.datafactoryservice;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
 import dataservice.accountdataservice.AccountDataService;
 import dataservice.commoditydataservice.CategoryDataService;
 import dataservice.commoditydataservice.CommodityDataService;
@@ -20,7 +17,7 @@ import dataservice.messagedataservice.MessageDataService;
 import dataservice.paymentdataservice.CashDataService;
 import dataservice.paymentdataservice.PaymentDataService;
 import dataservice.presentdataservice.PresentDataService;
-import dataservice.promotiondataservice.CustomerGiftDataservice;
+import dataservice.promotiondataservice.CustomerGiftDataService;
 import dataservice.promotiondataservice.SpecialOfferDataService;
 import dataservice.promotiondataservice.TotalGiftDataService;
 import dataservice.purchasedataservice.PurchaseDataService;
@@ -28,6 +25,9 @@ import dataservice.saledataservice.SaleDataService;
 import dataservice.stockdataservice.StockDataService;
 import dataservice.systemdateservice.SystemDataService;
 import dataservice.userdataservice.UserDataService;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public interface DataFactory extends Remote {
 
@@ -55,7 +55,7 @@ public interface DataFactory extends Remote {
 	
 	public PresentDataService getPresentData() throws RemoteException;
 	
-	public CustomerGiftDataservice getCustomerGiftData() throws RemoteException;
+	public CustomerGiftDataService getCustomerGiftData() throws RemoteException;
 	
 	public TotalGiftDataService getTotalGiftData() throws RemoteException;
 	

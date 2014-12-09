@@ -100,7 +100,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 		ArrayList<SalePO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<SalePO> lists = new ArrayList<SalePO>();
 		for(SalePO po: tLists) {
-			if(po.getSalesman().equals(salesman)) {
+			if(po.getSalesmanId().equals(salesman)) {
 				lists.add(po);
 			}
 		}
@@ -171,7 +171,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	private String poToString(SalePO po) {
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getCustomerId() + ";" + 
-				po.getCustomerName() + ";" + po.getCustomerVIP() + ";" + po.getSalesman()
+				po.getCustomerName() + ";" + po.getCustomerVIP() + ";" + po.getSalesmanId()
 				 + ";" + po.getOperatorId()+ ";" + po.getStorage() + ";" + po.getTotalBeforeDiscount()
 				 + ";" + po.getDiscount() + ";" + po.getVoucher() + ";" + po.getTotalAfterDiscount() 
 				 + ";" + po.getRemark() + ";" + po.isWriteOff() + ";" + po.getDocumentType() + ";" + 

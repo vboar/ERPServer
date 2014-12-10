@@ -161,7 +161,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
 					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getRemark()
-					 + "," + cPo.getRemark()+ DataIOUtility.splitStr;
+					 + DataIOUtility.splitStr;
 		}
 		if(po.getSaleList().size() != 0) str += ";";
 		return str;

@@ -174,12 +174,12 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 				po.getCustomerName() + ";" + po.getCustomerVIP() + ";" + po.getSalesman()
 				 + ";" + po.getOperatorId()+ ";" + po.getStorage() + ";" + po.getTotalBeforeDiscount()
 				 + ";" + po.getDiscount() + ";" + po.getVoucher() + ";" + po.getTotalAfterDiscount() 
-				 + ";" + po.getRemark() + ";" + po.isWriteOff() + ";" + po.getDocumentType() + ";" + 
-				 po.getPresentId() + ";";
+				 + ";" + po.getRemark() + ";" + po.getDocumentStatus() + ";" + po.isWriteOff()
+				+ ";" + po.getDocumentType() + ";" + po.getPresentId() + ";";
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
 					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getRemark()
-					 + "," + cPo.getRemark()+ DataIOUtility.splitStr;
+					 + DataIOUtility.splitStr;
 		}
 		if(po.getSaleList().size() != 0) str += ";";
 		return str;
@@ -200,8 +200,9 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 					Integer.parseInt(str3[3]), Double.parseDouble(str3[4]),
 					Double.parseDouble(str3[5]), str3[6]));
 		}
+		String presentId = str1[16];
 		SalePO po = new SalePO(str1[0], str1[1], str1[2], str1[3], Integer.parseInt(str1[4]), str1[5], 
-				str1[6], str1[7], tPos, str1[16], Double.parseDouble(str1[8]), Double.parseDouble(str1[9]),
+				str1[6], str1[7], tPos, presentId, Double.parseDouble(str1[8]), Double.parseDouble(str1[9]),
 				Double.parseDouble(str1[10]), Double.parseDouble(str1[11]), str1[12], 
 				Integer.parseInt(str1[13]), Boolean.parseBoolean(str1[14]), Integer.parseInt(str1[15]));
 		return po;

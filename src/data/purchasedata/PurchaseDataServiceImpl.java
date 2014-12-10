@@ -160,8 +160,8 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 				po.isWriteOff() + ";" + po.getDocumentType() + ";";
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
-					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getRemark()
-					 + DataIOUtility.splitStr;
+					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getTotal()
+					+ "," + cPo.getRemark() + DataIOUtility.splitStr;
 		}
 		if(po.getSaleList().size() != 0) str += ";";
 		return str;

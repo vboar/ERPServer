@@ -178,8 +178,8 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 				+ ";" + po.getDocumentType() + ";" + po.getPresentId() + ";";
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
-					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getRemark()
-					 + DataIOUtility.splitStr;
+					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getTotal()
+					+ "," + cPo.getRemark() + DataIOUtility.splitStr;
 		}
 		if(po.getSaleList().size() != 0) str += ";";
 		return str;

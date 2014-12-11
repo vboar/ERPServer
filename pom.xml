@@ -6,14 +6,29 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>local private nexus</name>
+			<url>http://maven.oschina.net/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 	<build>
 		<testSourceDirectory>src</testSourceDirectory>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src</directory>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
 				<excludes>
-					<exclude>ui/*.java</exclude>
 				</excludes>
 			</resource>
 		</resources>
@@ -33,6 +48,11 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
+		</dependency>
+		<dependency>
+			<groupId>me.deworm.lib</groupId>
+			<artifactId>swingset3_beautyeye</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

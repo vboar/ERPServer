@@ -12,6 +12,13 @@
 		<resources>
 			<resource>
 				<directory>${basedir}/src</directory>
+				<includes>
+					<include>data/**/*.java</include>
+					<include>dataservice/**/*.java</include>
+					<include>po/**/*.java</include>
+					<include>test/**/*.java</include>
+					<include>util/**/*.java</include>
+				</includes>
 				<excludes>
 					<exclude>ui/*.java</exclude>
 				</excludes>

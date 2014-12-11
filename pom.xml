@@ -13,15 +13,8 @@
 			<resource>
 				<directory>${basedir}/src</directory>
 				<includes>
-					<include>data/**/*.java</include>
-					<include>dataservice/**/*.java</include>
-					<include>po/**/*.java</include>
-					<include>test/**/*.java</include>
-					<include>util/**/*.java</include>
+					<include>**/*.java</include>
 				</includes>
-				<excludes>
-					<exclude>ui/*.java</exclude>
-				</excludes>
 			</resource>
 		</resources>
 		<plugins>
@@ -41,5 +34,24 @@
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jb2011.lnf.beautyeye</groupId>
+			<artifactId>beautyeye_lnf</artifactId>
+			<version>3.5</version>
+			<classifier>lib</classifier>
+		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>local private nexus</name>
+			<url>http://maven.oschina.net/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

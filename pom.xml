@@ -16,6 +16,7 @@
 					<include>**/*.java</include>
 				</includes>
 				<excludes>
+					<exclude>ui/*.java</exclude>
 				</excludes>
 			</resource>
 		</resources>

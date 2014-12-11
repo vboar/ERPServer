@@ -7,17 +7,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<testSourceDirectory>src</testSourceDirectory>
-		<sourceDirectory>src/test</sourceDirectory>
+		<testSourceDirectory>src/test</testSourceDirectory>
+		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src</directory>
 				<includes>
 					<include>**/*.java</include>
 				</includes>
-				<excludes>
-					<exclude>ui/*</exclude>
-				</excludes>
 			</resource>
 		</resources>
 		<plugins>

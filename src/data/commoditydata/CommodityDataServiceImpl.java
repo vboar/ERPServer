@@ -6,13 +6,13 @@
 
 package data.commoditydata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.commoditydataservice.CommodityDataService;
+import po.CommodityPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CommodityPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.commoditydataservice.CommodityDataService;
 
 public class CommodityDataServiceImpl extends UnicastRemoteObject implements CommodityDataService {
 	
@@ -142,7 +142,20 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 		print();
 		return this.stringToPoAll(d.readData());
 	}
-	
+
+	/**
+	 * 期初建账根据账id返回所有PO对象
+	 * @param id
+	 * @return
+	 * @throws RemoteException
+	 */
+	@Override
+	public ArrayList<CommodityPO> showByInitial(String id) throws RemoteException {
+		d.fatherPath = "data/" + id + "/";
+		print();
+		return this.stringToPoAll(d.readData());
+	}
+
 	/**
 	 * 将一个PO对象转化为String
 	 * @param po

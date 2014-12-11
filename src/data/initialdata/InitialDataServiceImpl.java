@@ -10,6 +10,7 @@ import data.dataioutility.DataIOUtility;
 import dataservice.initialdataservice.InitialDataService;
 import po.InitialPO;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -34,6 +35,48 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 	public void insert(InitialPO po) throws RemoteException {
 		print();
 		d.writeDataAdd(this.poToString(po));
+		// 保存currentyear-INI
+		String currentYear = po.getId().substring(0, 4);
+		String path1 = "data/" + currentYear + "-INI";
+		File f1 = new File(path1);
+		f1.mkdirs();
+		d.copyFile("data/currentdata/category.txt", path1 + "/category.txt");
+		d.copyFile("data/currentdata/commodity.txt", path1 + "/commodity.txt");
+		d.copyFile("data/currentdata/account.txt", path1 + "/account.txt");
+		d.copyFile("data/currentdata/customer.txt", path1 + "/customer.txt");
+		// 重写无关文件
+		d.clearData("cash");
+		d.clearData("customergift");
+		d.clearData("exception");
+		d.clearData("log");
+		d.clearData("message");
+		d.clearData("payment");
+		d.clearData("present");
+		d.clearData("purchase");
+		d.clearData("sale");
+		d.clearData("specialoffer");
+		d.clearData("stock");
+		d.clearData("system");
+		d.clearData("totalgift");
+		d.clearData("warning");
+	}
+
+	@Override
+	public void saveEnd() throws RemoteException {
+		// 复制currentdata为oldyear-END
+		ArrayList<InitialPO> list = show();
+		String oldYear = list.get(list.size()-1).getId().substring(0,4);
+		String path1 = "data/" + oldYear + "-END";
+		File f1 = new File(path1);
+		f1.mkdirs();
+		d.copyFolder("data/currentdata", path1);
+		d.writeDataAdd(this.poToString(new InitialPO(oldYear + "-END", oldYear + "年期末账")));
+	}
+
+	public static void main(String[] args) throws RemoteException {
+		InitialDataService i = new InitialDataServiceImpl();
+		i.saveEnd();
+		i.insert(new InitialPO("2014-INI", "2014年期初账"));
 	}
 
 	/**

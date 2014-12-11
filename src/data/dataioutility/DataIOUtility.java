@@ -6,17 +6,12 @@
 
 package data.dataioutility;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class DataIOUtility {
 	
-	private String fatherPath = "data/currentdata/";
+	public String fatherPath = "data/currentdata/";
 	
 	private String path;
 
@@ -29,7 +24,6 @@ public class DataIOUtility {
 	/**
 	 * 将数据写入文件（覆盖）
 	 * @param lists
-	 * @param path
 	 */
 	public void writeData(ArrayList<String> lists) {
 		try {
@@ -45,8 +39,6 @@ public class DataIOUtility {
 	
 	/**
 	 * 将数据写入文件（追加一行）
-	 * @param lists
-	 * @param path
 	 */
 	public void writeDataAdd(String s) {
 		try {
@@ -60,7 +52,6 @@ public class DataIOUtility {
 	
 	/**
 	 * 从文件中读取数据
-	 * @param path
 	 * @return
 	 */
 	public ArrayList<String> readData() {
@@ -109,5 +100,89 @@ public class DataIOUtility {
 		}
 		return strs;
 	}
-	
+
+	/**
+	 * 复制文件
+	 * @param oldPath
+	 * @param newPath
+	 */
+	public void copyFile(String oldPath, String newPath) {
+		try {
+			int bytesum = 0;
+			int byteread = 0;
+			File oldfile = new File(oldPath);
+			if (oldfile.exists()) {
+				InputStream inStream = new FileInputStream(oldPath);
+				FileOutputStream fs = new FileOutputStream(newPath);
+				byte[] buffer = new byte[1444];
+				int length;
+				while ( (byteread = inStream.read(buffer)) != -1) {
+					bytesum += byteread;
+					System.out.println(bytesum);
+					fs.write(buffer, 0, byteread);
+				}
+				inStream.close();
+			}
+		}
+		catch (Exception e) {
+			System.out.println("复制单个文件操作出错");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 复制文件夹
+	 * @param oldPath
+	 * @param newPath
+	 */
+	public void copyFolder(String oldPath, String newPath) {
+		try {
+			(new File(newPath)).mkdirs(); //如果文件夹不存在 则建立新文件夹
+			File a=new File(oldPath);
+			String[] file=a.list();
+			File temp=null;
+			for (int i = 0; i < file.length; i++) {
+				if(oldPath.endsWith(File.separator)){
+					temp=new File(oldPath+file[i]);
+				}
+				else{
+					temp=new File(oldPath+File.separator+file[i]);
+				}
+				if(temp.isFile()){
+					FileInputStream input = new FileInputStream(temp);
+					FileOutputStream output = new FileOutputStream(newPath + "/" +
+							(temp.getName()).toString());
+					byte[] b = new byte[1024 * 5];
+					int len;
+					while ( (len = input.read(b)) != -1) {
+						output.write(b, 0, len);
+					}
+					output.flush();
+					output.close();
+					input.close();
+				}
+				if(temp.isDirectory()){//如果是子文件夹
+					copyFolder(oldPath+"/"+file[i],newPath+"/"+file[i]);
+				}
+			}
+		}
+		catch (Exception e) {
+			System.out.println("复制整个文件夹内容操作出错");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 清空文件内容
+	 */
+	public void clearData(String path) {
+		try {
+			FileWriter fw = new FileWriter(fatherPath + path + ".txt", false);
+			fw.write("");
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

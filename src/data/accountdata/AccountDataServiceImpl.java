@@ -6,13 +6,13 @@
 
 package data.accountdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.accountdataservice.AccountDataService;
+import po.AccountPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.AccountPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.accountdataservice.AccountDataService;
 
 public class AccountDataServiceImpl extends UnicastRemoteObject implements AccountDataService {
 
@@ -76,6 +76,24 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	 */
 	@Override
 	public ArrayList<AccountPO> show() throws RemoteException {
+		print();
+		ArrayList<String> strs = d.readData();
+		ArrayList<AccountPO> lists = new ArrayList<AccountPO>();
+		for(String s: strs) {
+			lists.add(this.stringToPo(s));
+		}
+		return lists;
+	}
+
+	/**
+	 * 期初建账根据账id返回所有PO对象
+	 * @param id
+	 * @return
+	 * @throws RemoteException
+	 */
+	@Override
+	public ArrayList<AccountPO> showByInitial(String id) throws RemoteException {
+		d.fatherPath = "data/" + id + "/";
 		print();
 		ArrayList<String> strs = d.readData();
 		ArrayList<AccountPO> lists = new ArrayList<AccountPO>();

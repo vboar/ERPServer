@@ -6,13 +6,13 @@
 
 package data.customerdata;
 
+import data.dataioutility.DataIOUtility;
+import dataservice.customerdataservice.CustomerDataService;
+import po.CustomerPO;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import po.CustomerPO;
-import data.dataioutility.DataIOUtility;
-import dataservice.customerdataservice.CustomerDataService;
 
 public class CustomerDataServiceImpl extends UnicastRemoteObject implements CustomerDataService {
 
@@ -126,7 +126,20 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 		print();
 		return this.stringToPoAll(d.readData());
 	}
-	
+
+	/**
+	 * 期初建账根据账id返回所有PO对象
+	 * @param id
+	 * @return
+	 * @throws RemoteException
+	 */
+	@Override
+	public ArrayList<CustomerPO> showByInitial(String id) throws RemoteException {
+		d.fatherPath = "data/" + id + "/";
+		print();
+		return this.stringToPoAll(d.readData());
+	}
+
 	/**
 	 * 将一个PO对象转化为String
 	 * @param po

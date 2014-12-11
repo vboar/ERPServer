@@ -11,12 +11,9 @@
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>src</directory>
-				<includes>
-					<include>**/*.java</include>
-				</includes>
+				<directory>${basedir}/src</directory>
 				<excludes>
-					<exclude>${basedir}/src/ui/*.java</exclude>
+					<exclude>ui/*.java</exclude>
 				</excludes>
 			</resource>
 		</resources>

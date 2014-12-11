@@ -16,6 +16,12 @@
 					<include>**/*.java</include>
 				</includes>
 			</resource>
+			<resource>
+				<directory>src/ui</directory>
+				<excludes>
+					<exclude>**.java</exclude>
+				</excludes>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>

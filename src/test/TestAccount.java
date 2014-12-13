@@ -4,7 +4,6 @@ import data.accountdata.AccountDataServiceImpl;
 import data.dataioutility.DataIOUtility;
 import dataservice.accountdataservice.AccountDataService;
 import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Test;
 import po.AccountPO;
 
@@ -56,6 +55,7 @@ public class TestAccount extends TestCase {
         assertEquals(name, temp.getName());
         assertEquals(account, temp.getAccount());
         assertEquals(balance, temp.getBalance());
+        init();
     }
 
     @Test
@@ -91,6 +91,7 @@ public class TestAccount extends TestCase {
         impl.delete(po);
         temp1 = impl.show().get(0);
         assertEquals(temp.getAccount(), temp1.getAccount());
+        init();
     }
 
     @Test
@@ -106,6 +107,7 @@ public class TestAccount extends TestCase {
         AccountPO temp = impl.show().get(0);
         assertEquals(name, temp.getName());
         assertEquals(balance, temp.getBalance());
+        init();
     }
 
     @Test
@@ -113,6 +115,7 @@ public class TestAccount extends TestCase {
         init();
         impl = new AccountDataServiceImpl();
         assertEquals(3, impl.show().size());
+        init();
     }
 
     public void testShowByInitial() throws RemoteException {
@@ -134,6 +137,7 @@ public class TestAccount extends TestCase {
         // "渣打银行" - 0
         list = impl.findByName("渣打银行");
         assertEquals(0, list.size());
+        init();
     }
 
     @Test
@@ -147,6 +151,7 @@ public class TestAccount extends TestCase {
         // "14525" - 0
         list = impl.findByAccount("14525");
         assertEquals(0, list.size());
+        init();
     }
 
     public void testGetByAccount() throws RemoteException {
@@ -159,10 +164,6 @@ public class TestAccount extends TestCase {
         assertEquals(10000.0, po.getBalance());
         // "6222145277778"
         assertNull(impl.getByAccount("6222145277778"));
-    }
-
-    @After
-    public void finish() throws RemoteException {
         init();
     }
 

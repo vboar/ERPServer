@@ -4,7 +4,6 @@ import data.commoditydata.CategoryDataServiceImpl;
 import data.dataioutility.DataIOUtility;
 import dataservice.commoditydataservice.CategoryDataService;
 import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Test;
 import po.CategoryPO;
 
@@ -54,6 +53,7 @@ public class TestCategory extends TestCase {
         assertEquals(id, temp.getId());
         assertEquals(name, temp.getName());
         assertEquals(number, temp.getNumber());
+        init();
     }
 
     @Test
@@ -78,6 +78,7 @@ public class TestCategory extends TestCase {
         list = impl.show();
         assertEquals(1, list.size());
         assertEquals("00001", list.get(0).getId());
+        init();
     }
 
     @Test
@@ -94,6 +95,7 @@ public class TestCategory extends TestCase {
         assertEquals(id , temp.getId());
         assertEquals(name, temp.getName());
         assertEquals(number, temp.getNumber());
+        init();
     }
 
     @Test
@@ -108,6 +110,7 @@ public class TestCategory extends TestCase {
         // "00003" -0
         list = impl.findById("00003");
         assertEquals(0, list.size());
+        init();
     }
 
     @Test
@@ -122,6 +125,7 @@ public class TestCategory extends TestCase {
         // "日光灯" -0
         list = impl.findByName("日光灯");
         assertEquals(0, list.size());
+        init();
     }
 
     @Test
@@ -135,10 +139,6 @@ public class TestCategory extends TestCase {
         // "00003"
         po = impl.getById("00003");
         assertNull(po);
-    }
-
-    @After
-    public void finish() throws RemoteException {
         init();
     }
 

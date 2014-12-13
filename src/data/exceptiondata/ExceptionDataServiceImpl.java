@@ -132,7 +132,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 				po.getDocumentType() + ";" + po.isWriteoff() + ";";
 		for(ExceptionLineItemPO ePo: po.getList()) {
 			str += ePo.getId() + "," + ePo.getName() + "," + ePo.getModel() + "," + 
-					ePo.getSystemNumber() + "," + ePo.getActualNumber() + DataIOUtility.splitStr;
+					ePo.getSystemNumber() + "," + ePo.getActualNumber() + "," + DataIOUtility.splitStr;
 		}
 		if(po.getList().size() != 0) str += ";";
 		return str;

@@ -18,7 +18,7 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 
 	private static final long serialVersionUID = 1L;
 	
-	private String path = "user";
+	private String path = "stock";
 	
 	private DataIOUtility d = null;
 

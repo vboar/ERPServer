@@ -46,7 +46,7 @@ public class StockDataServiceImpl extends UnicastRemoteObject implements StockDa
 		ArrayList<StockPO> tLists = this.stringToPoAll(d.readData());
 		ArrayList<StockPO> lists = new ArrayList<StockPO>();
 		for(StockPO po: tLists) {
-			if(po.getBatch().equals(batch) && po.getBatchNumber().equals(batchNumber)) {
+			if(po.getBatch().equals(batch)) {
 				lists.add(po);
 			}
 		}

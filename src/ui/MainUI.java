@@ -8,7 +8,6 @@ package ui;
 
 import data.datafactory.DataFactoryImpl;
 import dataservice.datafactoryservice.DataFactory;
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 import javax.swing.*;
 import java.awt.*;

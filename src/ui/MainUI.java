@@ -145,13 +145,13 @@ public class MainUI extends JFrame {
 	 * 更改外观
 	 */
 	private static void changeLook() {
-	    try {
-	    	BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
-	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-	        // 关闭右上角设置
-	        UIManager.put("RootPane.setupButtonVisible", false);
-	    } catch(Exception e) {
-	    }
+//	    try {
+//	    	BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
+//	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//	        // 关闭右上角设置
+//	        UIManager.put("RootPane.setupButtonVisible", false);
+//	    } catch(Exception e) {
+//	    }
 	}
 	
 	/**

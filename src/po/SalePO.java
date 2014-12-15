@@ -146,10 +146,6 @@ public class SalePO implements Serializable {
 		return customerId;
 	}
 
-	public String getSalesman() {
-		return salesmanId;
-	}
-
 	public String getStorage() {
 		return storage;
 	}

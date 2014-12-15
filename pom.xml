@@ -18,11 +18,11 @@
 			</resource>
 			<resource>
 				<directory>src/ui</directory>
-				<filtering>true</filtering>
-				<excludes>
-					<exclude>**.java</exclude>
-					<exclude>*.*</exclude>
-				</excludes>
+				<filtering>false</filtering>
+				<includes>
+					<include>**.java</include>
+					<include>*.*</include>
+				</includes>
 			</resource>
 		</resources>
 		<plugins>

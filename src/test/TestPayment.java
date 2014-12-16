@@ -29,8 +29,8 @@ public class TestPayment extends TestCase {
         String customerName = "淘宝";
         String operatorId = "00001";
         ArrayList<TransferLineItemPO> list = new ArrayList<TransferLineItemPO>();
-        list.add(new TransferLineItemPO("62220222", 500, "备注1"));
-        list.add(new TransferLineItemPO("62220002", 1000, "备注2"));
+        list.add(new TransferLineItemPO("中国银行","62220222", 500, "备注1"));
+        list.add(new TransferLineItemPO("中国银行2","62220002", 1000, "备注2"));
         double total = 1500;
         int approvalStatus = 1;
         boolean isWriteOff = true;
@@ -45,8 +45,8 @@ public class TestPayment extends TestCase {
         customerName = "百度";
         operatorId = "00001";
         list = new ArrayList<TransferLineItemPO>();
-        list.add(new TransferLineItemPO("62220282", 5000, "备注3"));
-        list.add(new TransferLineItemPO("62220082", 10000, "备注4"));
+        list.add(new TransferLineItemPO("中国银行2","62220282", 5000, "备注3"));
+        list.add(new TransferLineItemPO("中国银行2","62220082", 10000, "备注4"));
         total = 15000;
         approvalStatus = 2;
         isWriteOff = false;
@@ -66,8 +66,8 @@ public class TestPayment extends TestCase {
         String customerName = "百度";
         String operatorId = "00002";
         ArrayList<TransferLineItemPO> list = new ArrayList<TransferLineItemPO>();
-        list.add(new TransferLineItemPO("62220221", 100, "备注5"));
-        list.add(new TransferLineItemPO("62220001", 150, "备注6"));
+        list.add(new TransferLineItemPO("中国银行2","62220221", 100, "备注5"));
+        list.add(new TransferLineItemPO("中国银行2","62220001", 150, "备注6"));
         double total = 250;
         int approvalStatus = 1;
         boolean isWriteOff = false;
@@ -102,8 +102,8 @@ public class TestPayment extends TestCase {
         String customerName = "百度";
         String operatorId = "00002";
         ArrayList<TransferLineItemPO> list = new ArrayList<TransferLineItemPO>();
-        list.add(new TransferLineItemPO("62220255", 1500, "备注5"));
-        list.add(new TransferLineItemPO("62220056", 1200, "备注6"));
+        list.add(new TransferLineItemPO("中国银行2","62220255", 1500, "备注5"));
+        list.add(new TransferLineItemPO("中国银行2","62220056", 1200, "备注6"));
         double total = 2700;
         int approvalStatus = 0;
         boolean isWriteOff = false;

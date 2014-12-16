@@ -172,7 +172,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 				po.getCustomerName() + ";" + po.getOperatorId() + ";" + po.getTotal() + ";" + 
 				po.getApprovalStatus() + ";" + po.isWriteOff() + ";" + po.getDocumentType() + ";";
 		for(TransferLineItemPO tPo: po.getTransferList()) {
-			str += tPo.getBankAccount() + "," + tPo.getAccount() + "," + tPo.getRemark()
+			str += tPo.getName() + "," + tPo.getBankAccount() + "," + tPo.getAccount() + "," + tPo.getRemark()
 					+ DataIOUtility.splitStr;
 		}
 		if(po.getTransferList().size() != 0) str += ";";
@@ -190,7 +190,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 		ArrayList<TransferLineItemPO> tPos = new ArrayList<TransferLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
-			tPos.add(new TransferLineItemPO(str3[0], Double.parseDouble(str3[1]), str3[2]));
+			tPos.add(new TransferLineItemPO(str3[0], str3[1], Double.parseDouble(str3[2]), str3[3]));
 		}
 		PaymentPO po = new PaymentPO(str1[0], str1[1], str1[2], str1[3], str1[4], tPos,
 				Double.parseDouble(str1[5]), Integer.parseInt(str1[6]), 

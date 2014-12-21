@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import po.AccountPO;
 import po.CategoryPO;
 import data.dataioutility.DataIOUtility;
 import dataservice.commoditydataservice.CategoryDataService;
@@ -125,6 +126,24 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 	public ArrayList<CategoryPO> show() throws RemoteException {
 		print();
 		return this.stringToPoAll(d.readData());
+	}
+
+	/**
+	 * 期初建账根据账id返回所有PO对象
+	 * @param id
+	 * @return
+	 * @throws RemoteException
+	 */
+	@Override
+	public ArrayList<CategoryPO> showByInitial(String id) throws RemoteException {
+		d.fatherPath = "data/" + id + "/";
+		print();
+		ArrayList<String> strs = d.readData();
+		ArrayList<CategoryPO> lists = new ArrayList<CategoryPO>();
+		for(String s: strs) {
+			lists.add(this.stringToPo(s));
+		}
+		return lists;
 	}
 	
 	/**

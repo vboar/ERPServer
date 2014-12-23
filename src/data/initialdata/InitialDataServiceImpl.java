@@ -36,8 +36,7 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 		print();
 		d.writeDataAdd(this.poToString(po));
 		// 保存currentyear-INI
-		String currentYear = po.getId().substring(0, 4);
-		String path1 = "data/" + currentYear + "-INI";
+		String path1 = "data/" + po.getId();
 		File f1 = new File(path1);
 		f1.mkdirs();
 		d.copyFile("data/currentdata/category.txt", path1 + "/category.txt");

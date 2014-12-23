@@ -108,7 +108,8 @@ public class TotalGiftDataServiceImpl extends UnicastRemoteObject implements Tot
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
 					pPo.getNumber() + DataIOUtility.splitStr;
 		}
-		if(po.getGiftInfo().size() != 0) str += ";";
+		if(po.getGiftInfo().size() == 0) str += DataIOUtility.splitStr;
+		str += ";";
 		return str;
 	}
 	

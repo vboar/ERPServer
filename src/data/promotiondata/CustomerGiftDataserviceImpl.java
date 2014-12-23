@@ -110,7 +110,8 @@ public class CustomerGiftDataserviceImpl extends UnicastRemoteObject implements 
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
 					pPo.getNumber() + DataIOUtility.splitStr;
 		}
-		if(po.getGiftInfo().size() != 0) str += ";";
+		if(po.getGiftInfo().size() == 0) str += DataIOUtility.splitStr;
+		str += ";";
 		return str;
 	}
 	

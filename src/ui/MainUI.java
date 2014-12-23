@@ -102,8 +102,11 @@ public class MainUI extends JFrame {
 	public static void main(String[] args) {
 		// 解决输入法冲突
 		System.setProperty("sun.java2d.noddraw", "true");
+		// 更改默认字体
 		MainUI.changeFont();
+		// 更改GUI样式
 		MainUI.changeLook();
+		// 创建GUI窗体
 		new MainUI();
 	}
 	
@@ -337,12 +340,12 @@ public class MainUI extends JFrame {
 			public void write(int b) throws IOException {
 				updateTextArea(String.valueOf((char) b));
 			}
-		 
+
 			@Override
 			public void write(byte[] b, int off, int len) throws IOException {
 				updateTextArea(new String(b, off, len));
 			}
-		 
+
 		    @Override
 		    public void write(byte[] b) throws IOException {
 		    	write(b, 0, b.length);

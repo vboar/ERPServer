@@ -118,7 +118,5 @@ public class CustomerGiftPO implements Serializable {
 	public String getEndTime() {
 		return endTime;
 	}
-	
-	
 
 }

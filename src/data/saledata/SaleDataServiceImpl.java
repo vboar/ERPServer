@@ -18,11 +18,21 @@ import java.util.ArrayList;
 public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleDataService {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "sale";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "sale";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造昂法
+	 * @throws RemoteException
+	 */
 	public SaleDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -221,6 +231,9 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 		return lists;
 	}
 
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
 				Thread.currentThread().getStackTrace()[2].getMethodName());

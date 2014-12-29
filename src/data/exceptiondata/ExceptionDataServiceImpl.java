@@ -1,5 +1,5 @@
 /**
- * 报溢报损单数据操作实现
+ * 报溢报损单数据操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -18,12 +18,22 @@ import java.util.ArrayList;
 public class ExceptionDataServiceImpl extends UnicastRemoteObject implements ExceptionDataService {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * 子路径
+	 */
 	private String path = "exception";
-	
-	private DataIOUtility d = null;
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
 
 
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public ExceptionDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -169,7 +179,10 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

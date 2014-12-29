@@ -97,5 +97,4 @@ public class ExceptionPO implements Serializable {
 		return isWriteoff;
 	}
 
-
 }

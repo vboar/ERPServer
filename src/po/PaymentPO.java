@@ -64,16 +64,17 @@ public class PaymentPO implements Serializable {
 	 * 单据类型
 	 */
 	private int documentType;
-	
+
 	/**
 	 * 构造方法
 	 * @param id
+	 * @param time
 	 * @param customerId
 	 * @param customerName
-	 * @param operator
+	 * @param operatorId
 	 * @param transferList
 	 * @param total
-	 * @param approvalState
+	 * @param approvalStatus
 	 * @param isWriteOff
 	 * @param documentType
 	 */

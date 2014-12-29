@@ -1,5 +1,5 @@
 /**
- * 进货数据操作实现
+ * 进货数据操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -18,11 +18,21 @@ import java.util.ArrayList;
 public class PurchaseDataServiceImpl extends UnicastRemoteObject implements PurchaseDataService {
 	
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "purchase";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "purchase";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public PurchaseDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -201,6 +211,9 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 		return lists;
 	}
 
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
 				Thread.currentThread().getStackTrace()[2].getMethodName());

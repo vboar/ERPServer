@@ -17,11 +17,21 @@ import dataservice.userdataservice.UserDataService;
 public class UserDataServiceImpl extends UnicastRemoteObject implements UserDataService {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "user";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "user";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造函数
+	 * @throws RemoteException
+	 */
 	public UserDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -177,7 +187,10 @@ public class UserDataServiceImpl extends UnicastRemoteObject implements UserData
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

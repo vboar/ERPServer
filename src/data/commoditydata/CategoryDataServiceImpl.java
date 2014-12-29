@@ -18,11 +18,21 @@ import dataservice.commoditydataservice.CategoryDataService;
 public class CategoryDataServiceImpl extends UnicastRemoteObject implements CategoryDataService {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "category";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "category";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public CategoryDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -178,7 +188,10 @@ public class CategoryDataServiceImpl extends UnicastRemoteObject implements Cate
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

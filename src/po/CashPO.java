@@ -59,7 +59,19 @@ public class CashPO implements Serializable {
 	 * 单据类型
 	 */
 	private int documentType;
-	
+
+	/**
+	 * 构造方法
+	 * @param ID
+	 * @param time
+	 * @param operatorId
+	 * @param bankAccount
+	 * @param clauseList
+	 * @param total
+	 * @param documentStatus
+	 * @param isWriteOff
+	 * @param documentType
+	 */
 	public CashPO(String ID,String time,String operatorId,String bankAccount,ArrayList<ClauseLineItemPO> clauseList,
 			double total, int documentStatus, boolean isWriteOff,int documentType){
 		this.id = ID;

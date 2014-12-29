@@ -1,5 +1,5 @@
 /**
- * 客户管理数据层操作实现
+ * 客户管理数据层操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -17,11 +17,21 @@ import java.util.ArrayList;
 public class CustomerDataServiceImpl extends UnicastRemoteObject implements CustomerDataService {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "customer";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "customer";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public CustomerDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -182,7 +192,10 @@ public class CustomerDataServiceImpl extends UnicastRemoteObject implements Cust
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

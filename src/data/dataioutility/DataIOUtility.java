@@ -10,13 +10,26 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class DataIOUtility {
-	
+
+	/**
+	 * 父路径
+	 */
 	public String fatherPath = "data/currentdata/";
-	
+
+	/**
+	 * 子路径
+	 */
 	private String path;
 
+	/**
+	 * 列表的每行元素间的分隔符
+	 */
 	public static final String splitStr = "#";
-	
+
+	/**
+	 * 构造函数
+	 * @param path
+	 */
 	public DataIOUtility(String path) {
 		this.path = path;
 	}
@@ -138,15 +151,15 @@ public class DataIOUtility {
 	public void copyFolder(String oldPath, String newPath) {
 		try {
 			(new File(newPath)).mkdirs(); //如果文件夹不存在 则建立新文件夹
-			File a=new File(oldPath);
-			String[] file=a.list();
-			File temp=null;
+			File a = new File(oldPath);
+			String[] file = a.list();
+			File temp = null;
 			for (int i = 0; i < file.length; i++) {
 				if(oldPath.endsWith(File.separator)){
-					temp=new File(oldPath+file[i]);
+					temp = new File(oldPath+file[i]);
 				}
 				else{
-					temp=new File(oldPath+File.separator+file[i]);
+					temp = new File(oldPath+File.separator+file[i]);
 				}
 				if(temp.isFile()){
 					FileInputStream input = new FileInputStream(temp);
@@ -162,7 +175,7 @@ public class DataIOUtility {
 					input.close();
 				}
 				if(temp.isDirectory()){//如果是子文件夹
-					copyFolder(oldPath+"/"+file[i],newPath+"/"+file[i]);
+					copyFolder(oldPath + "/" + file[i], newPath + "/" + file[i]);
 				}
 			}
 		}

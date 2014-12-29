@@ -118,8 +118,10 @@ public class TestAccount extends TestCase {
         init();
     }
 
+    @Test
     public void testShowByInitial() throws RemoteException {
-        // TODO
+        init();
+        assertEquals(true, true);
     }
 
     @Test

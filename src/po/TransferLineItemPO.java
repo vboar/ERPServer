@@ -13,11 +13,14 @@ public class TransferLineItemPO implements Serializable{
 	 * 序列化UID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * 银行名称
+	 */
 	private String name;
 	
 	/**
-	 * 银行账号
+	 * 银行卡号
 	 */
 	private String bankAccount;
 	
@@ -30,9 +33,10 @@ public class TransferLineItemPO implements Serializable{
 	 * 备注
 	 */
 	private String remark;
-	
+
 	/**
 	 * 构造方法
+	 * @param name
 	 * @param bankAccount
 	 * @param account
 	 * @param remark

@@ -18,9 +18,13 @@ import java.util.Date;
 public class CheckItSelf {
 
     public CheckItSelf() {
+        // 自查内部类线程启动
         new CheckThread().start();
     }
 
+    /**
+     * 自查内部类线程
+     */
     private class CheckThread extends Thread {
 
         @Override
@@ -28,8 +32,10 @@ public class CheckItSelf {
             while (true) {
                 try {
 
+                    // 检查并更改促销策略状态
                     checkPromotion();
 
+                    // 每100秒检查一次
                     Thread.sleep(100000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -40,6 +46,7 @@ public class CheckItSelf {
 
         /**
          * 检查并更改促销策略状态
+         * 如果促销策略过期了，把它设为失效状态
          */
         private void checkPromotion() {
             try {
@@ -77,8 +84,8 @@ public class CheckItSelf {
      * @return
      */
     public static String getCurrentTime(){
-        SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String time=df.format(new Date());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String time = df.format(new Date());
         return time;
     }
 }

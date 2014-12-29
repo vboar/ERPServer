@@ -1,5 +1,5 @@
 /**
- * 收付款单数据操作实现
+ * 收付款单数据操作的实现
  * @author vboar
  * @date 2014/11/25
  */
@@ -17,11 +17,21 @@ import java.util.ArrayList;
 public class PaymentDataServiceImpl extends UnicastRemoteObject implements PaymentDataService {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "payment";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "payment";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public PaymentDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -211,6 +221,9 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 		return lists;
 	}
 
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
 				Thread.currentThread().getStackTrace()[2].getMethodName());

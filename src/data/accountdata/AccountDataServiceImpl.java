@@ -1,5 +1,5 @@
 /**
- * 账户管理数据层操作实现
+ * 账户管理数据层操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -17,11 +17,21 @@ import java.util.ArrayList;
 public class AccountDataServiceImpl extends UnicastRemoteObject implements AccountDataService {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * 子路径
+	 */
 	private String path = "account";
-	
+
+	/**
+	 * 通用类实例
+	 */
 	private DataIOUtility d;
 
+	/**
+	 * 构造函数
+	 * @throws RemoteException
+	 */
 	public AccountDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -120,7 +130,7 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	}
 	
 	/**
-	 * 根据银行账号模糊查找PO对象
+	 * 根据银行卡号模糊查找PO对象
 	 */
 	@Override
 	public ArrayList<AccountPO> findByAccount(String account) throws RemoteException {
@@ -136,7 +146,7 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 	}
 
 	/**
-	 * 根据ID准确查找PO对象
+	 * 根据银行卡号准确查找PO对象
 	 */
 	@Override
 	public AccountPO getByAccount(String account) throws RemoteException {
@@ -182,7 +192,10 @@ public class AccountDataServiceImpl extends UnicastRemoteObject implements Accou
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

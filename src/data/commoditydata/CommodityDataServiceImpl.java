@@ -1,5 +1,5 @@
 /**
- * 商品管理数据层操作实现
+ * 商品管理数据层操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -18,10 +18,20 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 子路径
+	 */
 	private String path = "commodity";
-	
-	private DataIOUtility d = null;
-	
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public CommodityDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -198,7 +208,10 @@ public class CommodityDataServiceImpl extends UnicastRemoteObject implements Com
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

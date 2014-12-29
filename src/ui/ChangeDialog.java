@@ -11,39 +11,70 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 改变服务器端口对话框
+ */
 @SuppressWarnings("serial")
 public class ChangeDialog extends JDialog {
-	
+
+	/**
+	 * 当前端口显示标签
+	 */
 	private JLabel currentPort;
-	
+
+	/**
+	 * 新端口显示标签
+	 */
 	private JLabel newPort;
-	
+
+	/**
+	 * 新端口输入文本框
+	 */
 	private JTextField newPortTxt;
-	
+
+	/**
+	 * 提交按钮
+	 */
 	private JButton btnSubmit;
-	
+
+	/**
+	 * 取消按钮
+	 */
 	private JButton btnCancel;
-	
-	@SuppressWarnings("unused")
-	private JPanel panel;
-	
+
+	/**
+	 * 服务器主窗体
+	 */
 	private MainUI mainFrame;
-	
+
+	/**
+	 * 固定宽度
+	 */
 	private static final int WIDTH = 300;
-	
+
+	/**
+	 * 固定高度
+	 */
 	private static final int HEIGHT = 200;
-	
-	public ChangeDialog(MainUI mainFrame, JPanel panel) {
+
+	/**
+	 * 构造方法
+	 * @param mainFrame
+	 */
+	public ChangeDialog(MainUI mainFrame) {
 		super(mainFrame, true);
+		// 设置对话框为不透明（UI Jar包的显示问题）
 		((JComponent) this.getContentPane()).setOpaque(true);
-		this.panel = panel;
 		this.mainFrame = mainFrame;
 		this.createUI();
 		this.initLabels();
 		this.initButtons();
 		this.initTextFields();
 	}
-	
+
+	/**
+	 * 初始化对话框
+	 */
 	private void createUI() {
 		this.setTitle("更改端口");
 		this.setLayout(null);
@@ -52,7 +83,10 @@ public class ChangeDialog extends JDialog {
 				mainFrame.getY() + (mainFrame.getHeight()-HEIGHT)/2);
 		this.setResizable(false);
 	}
-	
+
+	/**
+	 * 初始化文本标签
+	 */
 	private void initLabels() {
 		
 		currentPort = new JLabel("当前端口：   " + mainFrame.getPort());
@@ -63,13 +97,19 @@ public class ChangeDialog extends JDialog {
 		newPort.setBounds(20, 65, 200, 25);
 		this.getContentPane().add(newPort);
 	}
-	
+
+	/**
+	 * 初始化文本框
+	 */
 	private void initTextFields() {
 		newPortTxt = new JTextField();
 		newPortTxt.setBounds(150, 65, 100, 25);
 		this.getContentPane().add(newPortTxt);
 	}
-	
+
+	/**
+	 * 初始化按钮
+	 */
 	private void initButtons() {
 		btnSubmit = new JButton("提交");
 		btnSubmit.setBounds(90, 120, 75, 25);
@@ -77,6 +117,8 @@ public class ChangeDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
+				// 对输入的新端口进行合法化的验证
 				if(newPortTxt.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "输入的端口为空！");
 					newPortTxt.setText("");

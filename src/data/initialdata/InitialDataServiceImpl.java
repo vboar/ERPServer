@@ -1,5 +1,5 @@
 /**
- * 期初建账数据层操作实现
+ * 期初建账数据层操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -18,11 +18,21 @@ import java.util.ArrayList;
 public class InitialDataServiceImpl extends UnicastRemoteObject implements InitialDataService {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String path = "initial";
-	
-	private DataIOUtility d = null;
 
+	/**
+	 * 子路径
+	 */
+	private String path = "initial";
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public InitialDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -60,6 +70,10 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 		d.clearData("warning");
 	}
 
+	/**
+	 * 增加期末账PO对象和保存期末账
+	 * @throws RemoteException
+	 */
 	@Override
 	public void saveEnd() throws RemoteException {
 		// 复制currentdata为oldyear-END
@@ -144,6 +158,9 @@ public class InitialDataServiceImpl extends UnicastRemoteObject implements Initi
 		return lists;
 	}
 
+	/**
+	 * 输出执行的类名和方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " +
 				Thread.currentThread().getStackTrace()[2].getMethodName());

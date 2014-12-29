@@ -17,7 +17,7 @@ public class QuickStart {
         try {
             // 启动默认端口8888
             LocateRegistry.createRegistry(8888);
-            DataFactory dataFactory = new DataFactoryImpl();
+            DataFactory dataFactory = DataFactoryImpl.getInstance();
             Naming.rebind("rmi://127.0.0.1:8888/DataFactory", dataFactory);
             new CheckItSelf();
         } catch (Exception e) {

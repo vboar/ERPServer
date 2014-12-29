@@ -1,5 +1,5 @@
 /**
- * 报警单数据操作实现
+ * 报警单数据操作的实现
  * @author Vboar
  * @date 2014/11/15
  */
@@ -19,10 +19,20 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 子路径
+	 */
 	private String path = "warning";
-	
-	private DataIOUtility d = null;
-	
+
+	/**
+	 * 通用类实例
+	 */
+	private DataIOUtility d;
+
+	/**
+	 * 构造方法
+	 * @throws RemoteException
+	 */
 	public WarningDataServiceImpl() throws RemoteException {
 		super();
 		d = new DataIOUtility(path);
@@ -129,7 +139,10 @@ public class WarningDataServiceImpl extends UnicastRemoteObject implements Warni
 		}
 		return lists;
 	}
-	
+
+	/**
+	 * 输出执行的类名及方法名
+	 */
 	private void print() {
 		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + ": executing " + 
 				Thread.currentThread().getStackTrace()[2].getMethodName());

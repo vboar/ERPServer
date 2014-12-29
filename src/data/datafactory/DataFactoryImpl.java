@@ -1,5 +1,5 @@
 /**
- * 抽象工厂实现
+ * 抽象工厂的实现
  * @author Vboar
  * @date 2014/10/26
  */
@@ -53,18 +53,29 @@ import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 单例模式
- *
+ * RMI远程对象
  */
 public class DataFactoryImpl extends UnicastRemoteObject implements DataFactory {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 单例的唯一一个实例
+	 */
 	private static DataFactoryImpl dataFactory;
-	
-	public DataFactoryImpl() throws RemoteException {
+
+	/**
+	 * 私有构造函数，不能在类外部new一个此对象
+	 * @throws RemoteException
+	 */
+	private DataFactoryImpl() throws RemoteException {
 		super();
 	}
-	
+
+	/**
+	 * 获得该单例
+	 * @return
+	 */
 	public static DataFactoryImpl getInstance() {
 		if(dataFactory == null) {
 			try {
@@ -122,7 +133,7 @@ public class DataFactoryImpl extends UnicastRemoteObject implements DataFactory 
 	}
 
 	@Override
-	public CashDataService getCashDataService() throws RemoteException {
+	public CashDataService getCashData() throws RemoteException {
 		return new CashDataServiceImpl();
 	}
 

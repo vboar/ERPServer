@@ -87,7 +87,10 @@ public class MainUI extends JFrame {
 	 * 服务开启状态
 	 */
 	private boolean isOn;
-	
+
+	/**
+	 * 远程对象
+	 */
 	private Remote reg;
 	
 	/**
@@ -188,8 +191,9 @@ public class MainUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(!isOn) {
+						// 开启RMI服务
 						reg = LocateRegistry.createRegistry(port);
-						DataFactory dataFactory = new DataFactoryImpl();
+						DataFactory dataFactory = DataFactoryImpl.getInstance();
 						Naming.rebind("rmi://" + address + ":" + port + "/DataFactory", dataFactory);
 						runningInfo.setText("服务运行中...");
 						isOn = true;
@@ -212,6 +216,7 @@ public class MainUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(isOn) {
+						// 关闭服务器端RMI服务
 						UnicastRemoteObject.unexportObject(reg, true);
 						runningInfo.setText("服务已停止...");
 						isOn = false;
@@ -301,7 +306,7 @@ public class MainUI extends JFrame {
 	 * 显示改变端口框体
 	 */
 	private void showChangeDialog() {
-		dialog = new ChangeDialog(this, panel);
+		dialog = new ChangeDialog(this);
 		dialog.setVisible(true);
 	}
 	

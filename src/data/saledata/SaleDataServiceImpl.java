@@ -180,11 +180,12 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 * @return
 	 */
 	private String poToString(SalePO po) {
-		String str = po.getId() + ";" + po.getTime() + ";" + po.getCustomerId() + ";" + 
+		String str = po.getId() + ";" + po.getSaleId() + ";" + po.getTime() + ";" + po.getCustomerId() + ";" + 
 				po.getCustomerName() + ";" + po.getCustomerVIP() + ";" + po.getSalesmanId()
 				 + ";" + po.getOperatorId()+ ";" + po.getStorage() + ";" + po.getTotalBeforeDiscount()
 				 + ";" + po.getDiscount() + ";" + po.getVoucher() + ";" + po.getTotalAfterDiscount() 
 				 + ";" + po.getRemark() + ";" + po.getDocumentStatus() + ";" + po.isWriteOff()
+				 + ";" + po.isCanReturn() + ";" + po.isCanWriteOff()
 				+ ";" + po.getDocumentType() + ";" + po.getPresentId() + ";";
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
@@ -202,7 +203,7 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 	 */
 	private SalePO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[17].split(DataIOUtility.splitStr);
+		String[] str2 = str1[20].split(DataIOUtility.splitStr);
 		ArrayList<CommodityLineItemPO> tPos = new ArrayList<CommodityLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -210,11 +211,12 @@ public class SaleDataServiceImpl extends UnicastRemoteObject implements SaleData
 					Integer.parseInt(str3[3]), Double.parseDouble(str3[4]),
 					Double.parseDouble(str3[5]), str3[6]));
 		}
-		String presentId = str1[16];
-		SalePO po = new SalePO(str1[0], str1[1], str1[2], str1[3], Integer.parseInt(str1[4]), str1[5], 
-				str1[6], str1[7], tPos, presentId, Double.parseDouble(str1[8]), Double.parseDouble(str1[9]),
-				Double.parseDouble(str1[10]), Double.parseDouble(str1[11]), str1[12], 
-				Integer.parseInt(str1[13]), Boolean.parseBoolean(str1[14]), Integer.parseInt(str1[15]));
+		String presentId = str1[19];
+		SalePO po = new SalePO(str1[0], str1[1], str1[2], str1[3], str1[4],Integer.parseInt(str1[5]), str1[6], 
+				str1[7], str1[8], tPos, presentId, Double.parseDouble(str1[9]), Double.parseDouble(str1[10]),
+				Double.parseDouble(str1[11]), Double.parseDouble(str1[12]), str1[13], 
+				Integer.parseInt(str1[14]), Boolean.parseBoolean(str1[15]),Boolean.parseBoolean(str1[16]),
+				Boolean.parseBoolean(str1[17]),Integer.parseInt(str1[18]));
 		return po;
 	}
 	

@@ -180,7 +180,8 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	private String poToString(PaymentPO po) {
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getCustomerId() + ";" + 
 				po.getCustomerName() + ";" + po.getOperatorId() + ";" + po.getTotal() + ";" + 
-				po.getApprovalStatus() + ";" + po.isWriteOff() + ";" + po.getDocumentType() + ";";
+				po.getApprovalStatus() + ";" + po.isWriteOff() + ";" 
+				+ po.isCanWriteOff() + ";" +po.getDocumentType() + ";";
 		for(TransferLineItemPO tPo: po.getTransferList()) {
 			str += tPo.getName() + "," + tPo.getBankAccount() + "," + tPo.getAccount() + "," + tPo.getRemark()
 					+ DataIOUtility.splitStr;
@@ -196,7 +197,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 	 */
 	private PaymentPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[9].split(DataIOUtility.splitStr);
+		String[] str2 = str1[10].split(DataIOUtility.splitStr);
 		ArrayList<TransferLineItemPO> tPos = new ArrayList<TransferLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -204,7 +205,7 @@ public class PaymentDataServiceImpl extends UnicastRemoteObject implements Payme
 		}
 		PaymentPO po = new PaymentPO(str1[0], str1[1], str1[2], str1[3], str1[4], tPos,
 				Double.parseDouble(str1[5]), Integer.parseInt(str1[6]), 
-				Boolean.parseBoolean(str1[7]), Integer.parseInt(str1[8]));
+				Boolean.parseBoolean(str1[7]),Boolean.parseBoolean(str1[8]), Integer.parseInt(str1[9]));
 		return po;
 	}
 	

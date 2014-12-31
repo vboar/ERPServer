@@ -1,16 +1,17 @@
 package test;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+import junit.framework.TestCase;
+
+import org.junit.Test;
+
+import po.CommodityLineItemPO;
+import po.PurchasePO;
 import data.dataioutility.DataIOUtility;
 import data.purchasedata.PurchaseDataServiceImpl;
 import dataservice.purchasedataservice.PurchaseDataService;
-import junit.framework.TestCase;
-import org.junit.Test;
-import po.CommodityLineItemPO;
-import po.PurchasePO;
-import po.SalePO;
-
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /**
  * PurchaseDataService的JUnit测试用例
@@ -37,9 +38,11 @@ public class TestPurchase extends TestCase {
         String remark = "备注";
         int documentStatus = 1;
         boolean isWriteOff = true;
+        boolean canReturn = true;
+        boolean canWriteOff = true;
         int documentType = 7;
-        PurchasePO po = new PurchasePO(id, time, customerId, customerName, operatorId, storage, saleList,
-                total, remark, documentStatus, isWriteOff, documentType);
+        PurchasePO po = new PurchasePO(id, id, time, customerId, customerName, operatorId, storage, saleList,
+                total, remark, documentStatus, isWriteOff, canReturn, canWriteOff,documentType);
         impl.insert(po);
 
         id = "JHTHD-20141213-00001";
@@ -55,9 +58,11 @@ public class TestPurchase extends TestCase {
         remark = "备注2";
         documentStatus = 2;
         isWriteOff = false;
+        canReturn = true;
+        canWriteOff = true;
         documentType = 8;
-        po = new PurchasePO(id, time, customerId, customerName, operatorId, storage, saleList,
-                total, remark, documentStatus, isWriteOff, documentType);
+        po = new PurchasePO(id, id,time, customerId, customerName, operatorId, storage, saleList,
+                total, remark, documentStatus, isWriteOff,canReturn,canWriteOff, documentType);
         impl.insert(po);
     }
 
@@ -79,9 +84,11 @@ public class TestPurchase extends TestCase {
         String remark = "备注3";
         int documentStatus = 2;
         boolean isWriteOff = false;
+        boolean canReturn = true;
+        boolean canWriteOff = true;
         int documentType = 7;
-        PurchasePO po = new PurchasePO(id, time, customerId, customerName, operatorId, storage, saleList,
-                total, remark, documentStatus, isWriteOff, documentType);
+        PurchasePO po = new PurchasePO(id, id,time, customerId, customerName, operatorId, storage, saleList,
+                total, remark, documentStatus, isWriteOff, canReturn, canWriteOff,documentType);
         impl.insert(po);
         assertEquals(3, impl.show().size());
         po = impl.show().get(2);
@@ -124,9 +131,11 @@ public class TestPurchase extends TestCase {
         String remark = "备注5";
         int documentStatus = 2;
         boolean isWriteOff = false;
+        boolean canReturn = true;
+        boolean canWriteOff = true;
         int documentType = 7;
-        PurchasePO po = new PurchasePO(id, time, customerId, customerName, operatorId, storage, saleList,
-                total, remark, documentStatus, isWriteOff, documentType);
+        PurchasePO po = new PurchasePO(id, id,time, customerId, customerName, operatorId, storage, saleList,
+                total, remark, documentStatus, isWriteOff, canReturn, canWriteOff,documentType);
         impl.update(po);
         po = impl.show().get(0);
         assertEquals(id, po.getId());

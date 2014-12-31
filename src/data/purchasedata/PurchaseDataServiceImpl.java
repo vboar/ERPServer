@@ -164,10 +164,11 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 * @return
 	 */
 	private String poToString(PurchasePO po) {
-		String str = po.getId() + ";" + po.getTime() + ";" + po.getCustomerId() + ";" + 
+		String str = po.getId() + ";" + po.getPurId() + ";"+ po.getTime() + ";" + po.getCustomerId() + ";" + 
 				po.getCustomerName() + ";" + po.getOperatorId() + ";" + po.getStorage() + ";" + 
 				po.getTotal() + ";" +  po.getRemark() + ";" + po.getDocumentStatus() + ";" + 
-				po.isWriteOff() + ";" + po.getDocumentType() + ";";
+				po.isWriteOff() + ";" + po.isCanReturn() + ";" +
+				po.isCanWriteOff() + ";" + po.getDocumentType() + ";";
 		for(CommodityLineItemPO cPo: po.getSaleList()) {
 			str += cPo.getId() + "," + cPo.getName() + "," + cPo.getModel() + "," + 
 					cPo.getNumber() + "," + cPo.getPrice() + "," + cPo.getTotal()
@@ -184,7 +185,7 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 	 */
 	private PurchasePO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[11].split(DataIOUtility.splitStr);
+		String[] str2 = str1[14].split(DataIOUtility.splitStr);
 		ArrayList<CommodityLineItemPO> tPos = new ArrayList<CommodityLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -192,9 +193,10 @@ public class PurchaseDataServiceImpl extends UnicastRemoteObject implements Purc
 					Integer.parseInt(str3[3]), Double.parseDouble(str3[4]),
 					Double.parseDouble(str3[5]), str3[6]));
 		}
-		PurchasePO po = new PurchasePO(str1[0], str1[1], str1[2], str1[3], str1[4], str1[5], tPos,
-				Double.parseDouble(str1[6]), str1[7], Integer.parseInt(str1[8]), 
-				Boolean.parseBoolean(str1[9]), Integer.parseInt(str1[10]));
+		PurchasePO po = new PurchasePO(str1[0], str1[1], str1[2], str1[3], str1[4], str1[5], str1[6], tPos,
+				Double.parseDouble(str1[7]), str1[8], Integer.parseInt(str1[9]), 
+				Boolean.parseBoolean(str1[10]), Boolean.parseBoolean(str1[11]),
+				Boolean.parseBoolean(str1[12]),Integer.parseInt(str1[13]));
 		return po;
 	}
 	

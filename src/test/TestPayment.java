@@ -36,7 +36,7 @@ public class TestPayment extends TestCase {
         boolean isWriteOff = true;
         int documentType = 8;
         PaymentPO po = new PaymentPO(id, time, customerId, customerName, operatorId,
-                list, total, approvalStatus, isWriteOff, documentType);
+                list, total, approvalStatus, isWriteOff, true,documentType);
         impl.insert(po);
 
         id = "FKD-2014/12/12-00001";
@@ -52,7 +52,7 @@ public class TestPayment extends TestCase {
         isWriteOff = false;
         documentType = 9;
         po = new PaymentPO(id, time, customerId, customerName, operatorId,
-                list, total, approvalStatus, isWriteOff, documentType);
+                list, total, approvalStatus, isWriteOff,true, documentType);
         impl.insert(po);
     }
 
@@ -73,7 +73,7 @@ public class TestPayment extends TestCase {
         boolean isWriteOff = false;
         int documentType = 8;
         PaymentPO po = new PaymentPO(id, time, customerId, customerName, operatorId,
-                list, total, approvalStatus, isWriteOff, documentType);
+                list, total, approvalStatus, isWriteOff, true,documentType);
         impl.insert(po);
         assertEquals(3, impl.show().size());
         po = impl.show().get(2);
@@ -109,7 +109,7 @@ public class TestPayment extends TestCase {
         boolean isWriteOff = false;
         int documentType = 8;
         PaymentPO po = new PaymentPO(id, time, customerId, customerName, operatorId,
-                list, total, approvalStatus, isWriteOff, documentType);
+                list, total, approvalStatus, isWriteOff, true, documentType);
         impl.update(po);
         po = impl.show().get(0);
         assertEquals(id, po.getId());

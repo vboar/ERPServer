@@ -43,9 +43,9 @@ public class TestSale extends TestCase {
         int documentStatus = 2;
         boolean isWriteOff = true;
         int documentType = 5;
-        SalePO po = new SalePO(id, time, customerId, customerName, customerVIP, salesmanId, operatorId,
+        SalePO po = new SalePO(id, id,time, customerId, customerName, customerVIP, salesmanId, operatorId,
                 storage, saleList, presentId, totalBeforeDiscount, discount, voucher, totalAfterDiscount, remark,
-                documentStatus, isWriteOff, documentType);
+                documentStatus, isWriteOff, true,true,documentType);
         impl.insert(po);
 
         id = "XSTHD-20141213-00001";
@@ -68,9 +68,9 @@ public class TestSale extends TestCase {
         documentStatus = 0;
         isWriteOff = false;
         documentType = 6;
-        po = new SalePO(id, time, customerId, customerName, customerVIP, salesmanId, operatorId,
+        po = new SalePO(id, id,time, customerId, customerName, customerVIP, salesmanId, operatorId,
                 storage, saleList, presentId, totalBeforeDiscount, discount, voucher, totalAfterDiscount, remark,
-                documentStatus, isWriteOff, documentType);
+                documentStatus, isWriteOff, true,true,documentType);
         impl.insert(po);
     }
 
@@ -98,9 +98,9 @@ public class TestSale extends TestCase {
         int documentStatus = 0;
         boolean isWriteOff = false;
         int documentType = 5;
-        SalePO po = new SalePO(id, time, customerId, customerName, customerVIP, salesmanId, operatorId,
+        SalePO po = new SalePO(id,id, time, customerId, customerName, customerVIP, salesmanId, operatorId,
                 storage, saleList, presentId, totalBeforeDiscount, discount, voucher, totalAfterDiscount, remark,
-                documentStatus, isWriteOff, documentType);
+                documentStatus, isWriteOff,true,true, documentType);
         impl.insert(po);
         assertEquals(3, impl.show().size());
         po = impl.show().get(2);
@@ -154,9 +154,9 @@ public class TestSale extends TestCase {
         int documentStatus = 1;
         boolean isWriteOff = false;
         int documentType = 5;
-        SalePO po = new SalePO(id, time, customerId, customerName, customerVIP, salesmanId, operatorId,
+        SalePO po = new SalePO(id, id,time, customerId, customerName, customerVIP, salesmanId, operatorId,
                 storage, saleList, presentId, totalBeforeDiscount, discount, voucher, totalAfterDiscount, remark,
-                documentStatus, isWriteOff, documentType);
+                documentStatus, isWriteOff, true,true,documentType);
         impl.update(po);
         po = impl.show().get(0);
         assertEquals(id, po.getId());

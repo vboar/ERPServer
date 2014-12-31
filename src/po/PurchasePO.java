@@ -21,6 +21,11 @@ public class PurchasePO implements Serializable {
 	private String id;
 	
 	/**
+	 * 对应进货单ID(针对退货单)
+	 */
+	private String purId;
+	
+	/**
 	 * 创建时间
 	 */
 	private String time;
@@ -69,7 +74,17 @@ public class PurchasePO implements Serializable {
 	* 是否为红冲单据
 	*/
 	private boolean isWriteOff;
-	   
+	
+	/**
+	 * 是否可退货
+	 */
+	private boolean canReturn;
+	
+	/**
+	 * 是否可红冲
+	 */
+	private boolean canWriteOff;
+	
 	/**
 	* 单据类型
 	*/
@@ -90,11 +105,13 @@ public class PurchasePO implements Serializable {
 	 * @param isWriteOff
 	 * @param documentType
 	 */
-	public PurchasePO(String id,String time,String customerId,String customerName,
+	public PurchasePO(String id, String purId, String time,String customerId,String customerName,
 			String operatorId,String storage,ArrayList<CommodityLineItemPO> saleList,double total,
-			String remark,int documentStatus,boolean isWriteOff,int documentType){
+			String remark,int documentStatus,boolean isWriteOff,
+			boolean canReturn, boolean canWriteOff,	int documentType){
 		this.time = time;
 		this.id=id;
+		this.purId = purId;
 		this.customerId=customerId;
 		this.customerName=customerName;
 		this.operatorId=operatorId;
@@ -104,6 +121,8 @@ public class PurchasePO implements Serializable {
 		this.remark=remark;
 		this.documentStatus=documentStatus;
 		this.isWriteOff=isWriteOff;
+		this.canReturn = canReturn;
+		this.canWriteOff = canWriteOff;
 		this.documentType=documentType;
 	}
 
@@ -162,5 +181,17 @@ public class PurchasePO implements Serializable {
 	public String getCustomerName() {
 		return customerName;
 	}
-	
+
+	public boolean isCanReturn() {
+		return canReturn;
+	}
+
+	public boolean isCanWriteOff() {
+		return canWriteOff;
+	}
+
+	public String getPurId() {
+		return purId;
+	}
+
 }

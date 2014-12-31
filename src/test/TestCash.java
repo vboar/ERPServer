@@ -35,7 +35,7 @@ public class TestCash extends TestCase {
         boolean isWriteoff = false;
         int documentType = 10;
         CashPO po = new CashPO(id, time, operatorId, bankAccount, cList, total, documentStatus,
-                isWriteoff, documentType);
+                isWriteoff, true,documentType);
         impl.insert(po);
 
         id = "XJFYD-2014/12/12-00002";
@@ -50,7 +50,7 @@ public class TestCash extends TestCase {
         isWriteoff = true;
         documentType = 10;
         po = new CashPO(id, time, operatorId, bankAccount, cList, total, documentStatus,
-                isWriteoff, documentType);
+                isWriteoff, true,documentType);
         impl.insert(po);
     }
 
@@ -69,7 +69,7 @@ public class TestCash extends TestCase {
         boolean isWriteoff = false;
         int documentType = 10;
         CashPO po = new CashPO(id, time, operatorId, bankAccount, cList, total, documentStatus,
-                isWriteoff, documentType);
+                isWriteoff, true,documentType);
         impl.insert(po);
         assertEquals(3, impl.show().size());
         po = impl.show().get(2);
@@ -103,7 +103,7 @@ public class TestCash extends TestCase {
         boolean isWriteoff = true;
         int documentType = 10;
         CashPO po = new CashPO(id, time, operatorId, bankAccount, cList, total, documentStatus,
-                isWriteoff, documentType);
+                isWriteoff, true, documentType);
         impl.update(po);
         po = impl.show().get(0);
         assertEquals(id, po.getId());

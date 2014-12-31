@@ -139,7 +139,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	private String poToString(ExceptionPO po) {
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getDocumentStatus() + ";" + 
-				po.getDocumentType() + ";" + po.isWriteoff() + ";";
+				po.getDocumentType() + ";" + po.isWriteoff() + ";" + po.isCanWriteoff() + ";";
 		for(ExceptionLineItemPO ePo: po.getList()) {
 			str += ePo.getId() + "," + ePo.getName() + "," + ePo.getModel() + "," + 
 					ePo.getSystemNumber() + "," + ePo.getActualNumber() + "," + DataIOUtility.splitStr;
@@ -155,7 +155,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 	 */
 	private ExceptionPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[5].split(DataIOUtility.splitStr);
+		String[] str2 = str1[6].split(DataIOUtility.splitStr);
 		ArrayList<ExceptionLineItemPO> ePos = new ArrayList<ExceptionLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -163,7 +163,7 @@ public class ExceptionDataServiceImpl extends UnicastRemoteObject implements Exc
 					Integer.parseInt(str3[3]), Integer.parseInt(str3[4])));
 		}
 		ExceptionPO po = new ExceptionPO(str1[0], str1[1], ePos, Integer.parseInt(str1[2]), 
-				Integer.parseInt(str1[3]), Boolean.parseBoolean(str1[4]));
+				Integer.parseInt(str1[3]), Boolean.parseBoolean(str1[4]),Boolean.parseBoolean(str1[5]));
 		return po;
 	}
 	

@@ -31,7 +31,7 @@ public class TestException extends TestCase {
         ArrayList<ExceptionLineItemPO> list = new ArrayList<ExceptionLineItemPO>();
         list.add(new ExceptionLineItemPO("00001-00001-00001", "百度日光灯", "B001", 50, 60));
         list.add(new ExceptionLineItemPO("00001-00001-00002", "淘宝日光灯", "T011", 40, 80));
-        ExceptionPO po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff);
+        ExceptionPO po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff,true);
         impl.insert(po);
 
         id = "BSD-20141212-00001";
@@ -42,7 +42,7 @@ public class TestException extends TestCase {
         list = new ArrayList<ExceptionLineItemPO>();
         list.add(new ExceptionLineItemPO("00001-00001-00001", "百度日光灯", "B001", 50, 40));
         list.add(new ExceptionLineItemPO("00001-00001-00002", "淘宝日光灯", "T011", 40, 20));
-        po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff);
+        po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff,true);
         impl.insert(po);
 
         id = "BYD-20141213-00002";
@@ -53,7 +53,7 @@ public class TestException extends TestCase {
         list = new ArrayList<ExceptionLineItemPO>();
         list.add(new ExceptionLineItemPO("00001-00001-00001", "百度日光灯", "B001", 50, 80));
         list.add(new ExceptionLineItemPO("00001-00001-00002", "淘宝日光灯", "T011", 80, 100));
-        po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff);
+        po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff,true);
         impl.insert(po);
     }
 
@@ -69,7 +69,7 @@ public class TestException extends TestCase {
         ArrayList<ExceptionLineItemPO> list = new ArrayList<ExceptionLineItemPO>();
         list.add(new ExceptionLineItemPO("00001-00001-00001", "百度日光灯", "B001", 50, 30));
         list.add(new ExceptionLineItemPO("00001-00001-00004", "腾讯日光灯", "T111", 40, 20));
-        ExceptionPO po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff);
+        ExceptionPO po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff,true);
         impl.insert(po);
         ArrayList<ExceptionPO> eList = impl.show("1970/01/01", "2014/12/15");
         assertEquals(4, eList.size());
@@ -100,7 +100,7 @@ public class TestException extends TestCase {
         ArrayList<ExceptionLineItemPO> list = new ArrayList<ExceptionLineItemPO>();
         list.add(new ExceptionLineItemPO("00001-00001-00001", "百度日光灯", "B001", 30, 80));
         list.add(new ExceptionLineItemPO("00001-00001-00002", "淘宝日光灯", "T011", 70, 100));
-        ExceptionPO po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff);
+        ExceptionPO po = new ExceptionPO(id, time, list, documentStatus, documentType, isWriteoff,true);
         impl.update(po);
         po = impl.show("1970/01/01", "2014/12/15").get(0);
         assertEquals(id, po.getId());

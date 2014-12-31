@@ -147,7 +147,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	private String poToString(CashPO po) {
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getOperatorId() + ";" + 
 				po.getBankAccount() + ";" + po.getTotal() + ";" + po.getDocumentStatus() + ";" + 
-				po.isWriteOff() + ";" + po.getDocumentType() + ";";
+				po.isWriteOff() + ";" + po.isCanWriteOff() + ";" + po.getDocumentType() + ";";
 		for(ClauseLineItemPO cPo: po.getClauseList()) {
 			str += cPo.getName() + "," + cPo.getAccount() + "," + cPo.getRemark() + DataIOUtility.splitStr;
 		}
@@ -162,7 +162,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 	 */
 	private CashPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[8].split(DataIOUtility.splitStr);
+		String[] str2 = str1[9].split(DataIOUtility.splitStr);
 		ArrayList<ClauseLineItemPO> cPos = new ArrayList<ClauseLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -170,7 +170,7 @@ public class CashDataServiceImpl extends UnicastRemoteObject implements CashData
 		}
 		CashPO po = new CashPO(str1[0], str1[1], str1[2], str1[3], cPos,
 				Double.parseDouble(str1[4]), Integer.parseInt(str1[5]), 
-				Boolean.parseBoolean(str1[6]), Integer.parseInt(str1[7]));
+				Boolean.parseBoolean(str1[6]), Boolean.parseBoolean(str1[7]),Integer.parseInt(str1[8]));
 		return po;
 	}
 	

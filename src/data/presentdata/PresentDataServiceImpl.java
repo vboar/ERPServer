@@ -153,7 +153,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	private String poToString(PresentPO po) {
 		String str = po.getId() + ";" + po.getTime() + ";" + po.getCustomerId() + ";" + 
 				po.getCustomerName() + ";" + po.getDocumentStatus() + ";" + 
-				po.getDocumentType() + ";" + po.isWriteoff() + ";";
+				po.getDocumentType() + ";" + po.isWriteoff() + ";" + po.isCanWriteOff() + ";";
 		for(PresentLineItemPO pPo: po.getList()) {
 			str += pPo.getId() + "," + pPo.getName() + "," + pPo.getModel() + "," + 
 					pPo.getNumber() + DataIOUtility.splitStr;
@@ -169,7 +169,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 	 */
 	private PresentPO stringToPo(String s) {
 		String[] str1 = s.split(";");
-		String[] str2 = str1[7].split(DataIOUtility.splitStr);
+		String[] str2 = str1[8].split(DataIOUtility.splitStr);
 		ArrayList<PresentLineItemPO> pPos = new ArrayList<PresentLineItemPO>();
 		for(int i = 0; i < str2.length; i++) {
 			String[] str3 = str2[i].split(",");
@@ -178,7 +178,7 @@ public class PresentDataServiceImpl extends UnicastRemoteObject implements Prese
 		}
 		PresentPO po = new PresentPO(str1[0], str1[1], str1[2], str1[3], pPos,
 				Integer.parseInt(str1[4]), Integer.parseInt(str1[5]), 
-				Boolean.parseBoolean(str1[6]));
+				Boolean.parseBoolean(str1[6]),Boolean.parseBoolean(str1[7]));
 		return po;
 	}
 	

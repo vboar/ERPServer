@@ -34,7 +34,7 @@ public class TestPresent extends TestCase {
         int documentType = 0;
         boolean isWriteoff = true;
         PresentPO po = new PresentPO(id, time, customerId, customerName, list, documentStatus,
-                documentType, isWriteoff);
+                documentType, isWriteoff,true);
         impl.insert(po);
 
         id = "ZSD-2014/12/13-00002";
@@ -48,7 +48,7 @@ public class TestPresent extends TestCase {
         documentType = 0;
         isWriteoff = false;
         po = new PresentPO(id, time, customerId, customerName, list, documentStatus,
-                documentType, isWriteoff);
+                documentType, isWriteoff,true);
         impl.insert(po);
     }
 
@@ -67,7 +67,7 @@ public class TestPresent extends TestCase {
         int documentType = 0;
         boolean isWriteoff = true;
         PresentPO po = new PresentPO(id, time, customerId, customerName, list, documentStatus,
-                documentType, isWriteoff);
+                documentType, isWriteoff,true);
         impl.insert(po);
         assertEquals(3, impl.findByTime("1970/01/01", "2014/12/16").size());
         po = impl.findByTime("1970/01/01", "2014/12/16").get(2);
@@ -100,7 +100,7 @@ public class TestPresent extends TestCase {
         int documentType = 0;
         boolean isWriteoff = false;
         PresentPO po = new PresentPO(id, time, customerId, customerName, list, documentStatus,
-                documentType, isWriteoff);
+                documentType, isWriteoff,true);
         impl.update(po);
         po = impl.findByTime("1970/01/01", "2014/12/16").get(0);
         assertEquals(id, po.getId());

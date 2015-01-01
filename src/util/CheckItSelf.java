@@ -32,11 +32,12 @@ public class CheckItSelf {
             while (true) {
                 try {
 
+                    // 每100秒检查一次
+                    Thread.sleep(100000);
+
                     // 检查并更改促销策略状态
                     checkPromotion();
 
-                    // 每100秒检查一次
-                    Thread.sleep(100000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

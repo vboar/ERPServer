@@ -8,6 +8,8 @@ package ui;
 
 import data.datafactory.DataFactoryImpl;
 import dataservice.datafactoryservice.DataFactory;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import util.CheckItSelf;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,6 +113,8 @@ public class MainUI extends JFrame {
 		MainUI.changeLook();
 		// 创建GUI窗体
 		new MainUI();
+		// 自检
+		new CheckItSelf();
 	}
 	
 	/**
@@ -150,13 +154,13 @@ public class MainUI extends JFrame {
 	 * 更改外观
 	 */
 	private static void changeLook() {
-//	    try {
-//	    	BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
-//	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//	        // 关闭右上角设置
-//	        UIManager.put("RootPane.setupButtonVisible", false);
-//	    } catch(Exception e) {
-//	    }
+	    try {
+	    	BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
+	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+	        // 关闭右上角设置
+	        UIManager.put("RootPane.setupButtonVisible", false);
+	    } catch(Exception e) {
+	    }
 	}
 	
 	/**
@@ -253,7 +257,7 @@ public class MainUI extends JFrame {
 	private void initLabels() {
 		
 		labInfo = new JLabel("服务器信息(IP:PORT)：" + this.address + ":" + this.port);
-		labInfo.setBounds(20, 10, 300, 25);
+		labInfo.setBounds(20, 10, 360, 25);
 		panel.add(labInfo);
 		
 		runningInfo = new JLabel("服务未开启！");
